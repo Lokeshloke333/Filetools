@@ -58,11 +58,6 @@ export default function RotateImagePage() {
     clearResult();
   };
 
-  const breadcrumbs = [
-    { label: "Image Tools", href: "/tools/image" },
-    { label: "Rotate Image" },
-  ];
-
   const faqs = [
     {
       question: "Can I use custom angles?",
@@ -79,7 +74,7 @@ export default function RotateImagePage() {
   ];
 
   return (
-    <ToolLayout breadcrumbs={breadcrumbs}>
+    <ToolLayout>
       
       {/* 2-Column Tool Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

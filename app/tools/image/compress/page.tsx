@@ -46,11 +46,6 @@ export default function CompressImagePage() {
     clearResult();
   };
 
-  const breadcrumbs = [
-    { label: "Image Tools", href: "/tools/image" },
-    { label: "Compress Image" },
-  ];
-
   const faqs = [
     {
       question: "What file formats does Compress Image support?",
@@ -71,7 +66,7 @@ export default function CompressImagePage() {
   ];
 
   return (
-    <ToolLayout breadcrumbs={breadcrumbs}>
+    <ToolLayout>
       
       {/* 2-Column Tool Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

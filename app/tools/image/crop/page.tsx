@@ -54,11 +54,6 @@ export default function CropImagePage() {
     }
   };
 
-  const breadcrumbs = [
-    { label: "Image Tools", href: "/tools/image" },
-    { label: "Crop Image" },
-  ];
-
   const faqs = [
     {
       question: "How do I crop an image precisely?",
@@ -71,7 +66,7 @@ export default function CropImagePage() {
   ];
 
   return (
-    <ToolLayout breadcrumbs={breadcrumbs}>
+    <ToolLayout>
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         

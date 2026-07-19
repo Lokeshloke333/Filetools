@@ -1,25 +1,48 @@
 "use client";
 
-import React from "react";
-import { ArrowRight, FileText, FileImage, FileVideo, Music, Scissors, Lock, FileSpreadsheet, Key } from "lucide-react";
+import { ArrowRight, LucideIcon } from "lucide-react";
 import { AdPlaceholder } from "./AdPlaceholder";
 import Link from "next/link";
+import { TOOLS } from "@/lib/tools";
 
 interface ToolCardProps {
   title: string;
   description: string;
-  icon: React.ReactNode;
+  icon: LucideIcon;
+  color: string;
   href: string;
+  isComingSoon?: boolean;
 }
 
-function ToolCard({ title, description, icon, href }: ToolCardProps) {
+function ToolCard({ title, description, icon: Icon, color, href, isComingSoon }: ToolCardProps) {
+  if (isComingSoon) {
+    return (
+      <div className="group flex items-center p-4 bg-slate-50/50 border border-slate-200/60 rounded-xl opacity-70">
+        <div className="w-12 h-12 flex-shrink-0 bg-slate-100/50 rounded-lg flex items-center justify-center mr-4">
+          <Icon className={`w-6 h-6 ${color}`} />
+        </div>
+        <div className="flex-grow">
+          <div className="flex items-center gap-2">
+            <h3 className="font-semibold text-slate-500">
+              {title}
+            </h3>
+            <span className="text-[10px] uppercase tracking-wider font-bold bg-slate-200 text-slate-500 px-2 py-0.5 rounded-full">
+              Soon
+            </span>
+          </div>
+          <p className="text-xs text-slate-400 mt-0.5 line-clamp-1">{description}</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <Link 
       href={href}
       className="group flex items-center p-4 bg-white border border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-md transition-all duration-200"
     >
       <div className="w-12 h-12 flex-shrink-0 bg-slate-50 rounded-lg flex items-center justify-center mr-4 group-hover:bg-blue-50 transition-colors">
-        {icon}
+        <Icon className={`w-6 h-6 ${color}`} />
       </div>
       <div className="flex-grow">
         <h3 className="font-semibold text-slate-900 group-hover:text-blue-600 transition-colors">
@@ -35,56 +58,8 @@ function ToolCard({ title, description, icon, href }: ToolCardProps) {
 }
 
 export function PopularTools() {
-  const tools = [
-    {
-      title: "PDF to Word",
-      description: "Convert PDF to editable Word document.",
-      icon: <FileText className="w-6 h-6 text-blue-600" />,
-      href: "#",
-    },
-    {
-      title: "Image Resize",
-      description: "Resize images to exact pixel dimensions.",
-      icon: <FileImage className="w-6 h-6 text-indigo-600" />,
-      href: "/tools/image/compress",
-    },
-    {
-      title: "Compress Video",
-      description: "Reduce video file size without quality loss.",
-      icon: <FileVideo className="w-6 h-6 text-rose-600" />,
-      href: "#",
-    },
-    {
-      title: "Audio Cutter",
-      description: "Trim and cut audio files easily.",
-      icon: <Music className="w-6 h-6 text-amber-500" />,
-      href: "#",
-    },
-    {
-      title: "Split PDF",
-      description: "Extract pages from your PDF.",
-      icon: <Scissors className="w-6 h-6 text-emerald-600" />,
-      href: "#",
-    },
-    {
-      title: "Unlock PDF",
-      description: "Remove passwords from PDF files.",
-      icon: <Key className="w-6 h-6 text-slate-700" />,
-      href: "#",
-    },
-    {
-      title: "Excel to PDF",
-      description: "Convert spreadsheets to PDF.",
-      icon: <FileSpreadsheet className="w-6 h-6 text-green-600" />,
-      href: "#",
-    },
-    {
-      title: "Protect PDF",
-      description: "Add a password to secure your PDF.",
-      icon: <Lock className="w-6 h-6 text-red-500" />,
-      href: "#",
-    },
-  ];
+  const activeTools = TOOLS.filter(t => t.status === "active").slice(0, 5);
+  const comingSoonTools = TOOLS.filter(t => t.status === "coming-soon").slice(0, 5);
 
   return (
     <section className="py-16 md:py-24 bg-slate-50/50">
@@ -96,7 +71,7 @@ export function PopularTools() {
             <h2 className="text-3xl font-bold text-slate-900 tracking-tight">Popular Tools</h2>
             <p className="text-slate-500 mt-2">The most used tools by our community.</p>
           </div>
-          <Link href="#" className="text-blue-600 font-medium flex items-center hover:underline">
+          <Link href="/tools" className="text-blue-600 font-medium flex items-center hover:underline">
             View all tools <ArrowRight className="w-4 h-4 ml-1" />
           </Link>
         </div>
@@ -110,21 +85,41 @@ export function PopularTools() {
           </div>
 
           {/* Tools Grid */}
-          <div className="lg:col-span-8">
+          <div className="lg:col-span-8 flex flex-col gap-12">
             <div className="grid md:grid-cols-2 gap-4">
-              {tools.map((tool) => (
+              {activeTools.map((tool) => (
                 <ToolCard
                   key={tool.title}
                   href={tool.href}
                   title={tool.title}
                   description={tool.description}
                   icon={tool.icon}
+                  color={tool.color}
                 />
               ))}
             </div>
+
+            <div>
+              <h3 className="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+                Coming Soon
+              </h3>
+              <div className="grid md:grid-cols-2 gap-4">
+                {comingSoonTools.map((tool) => (
+                  <ToolCard
+                    key={tool.title}
+                    href="#"
+                    title={tool.title}
+                    description={tool.description}
+                    icon={tool.icon}
+                    color={tool.color}
+                    isComingSoon={true}
+                  />
+                ))}
+              </div>
+            </div>
             
             {/* Mobile/Tablet Ad - under the tools */}
-            <div className="mt-8 lg:hidden">
+            <div className="lg:hidden">
               <AdPlaceholder height="h-[250px]" className="rounded-xl w-full max-w-md mx-auto" />
             </div>
           </div>

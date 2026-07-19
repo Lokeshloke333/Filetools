@@ -50,11 +50,6 @@ export default function ConvertImagePage() {
   // Auto-detect format text
   const originalFormatStr = file ? file.type.split('/')[1].toUpperCase() : "Auto-detect";
 
-  const breadcrumbs = [
-    { label: "Image Tools", href: "/tools/image" },
-    { label: "Convert Image" },
-  ];
-
   const faqs = [
     {
       question: "Which formats are supported?",
@@ -71,7 +66,7 @@ export default function ConvertImagePage() {
   ];
 
   return (
-    <ToolLayout breadcrumbs={breadcrumbs}>
+    <ToolLayout>
       
       {/* 2-Column Tool Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

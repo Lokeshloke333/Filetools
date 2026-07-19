@@ -49,11 +49,6 @@ export default function ResizeImagePage() {
     setHeight("");
   };
 
-  const breadcrumbs = [
-    { label: "Image Tools", href: "/tools/image" },
-    { label: "Resize Image" },
-  ];
-
   const faqs = [
     {
       question: "Will resizing my image reduce its quality?",
@@ -72,7 +67,7 @@ export default function ResizeImagePage() {
   const inputClasses = "flex h-11 w-full rounded-xl border border-slate-200 bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-50";
 
   return (
-    <ToolLayout breadcrumbs={breadcrumbs}>
+    <ToolLayout>
       
       {/* 2-Column Tool Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

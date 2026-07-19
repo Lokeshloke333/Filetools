@@ -6,6 +6,7 @@ import { Menu, X, Layers, Search } from "lucide-react";
 import { Button } from "./ui/button";
 import { MegaMenu } from "./navbar/MegaMenu";
 import { MobileMenu } from "./navbar/MobileMenu";
+import { GlobalSearch } from "./search/GlobalSearch";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,16 +43,8 @@ export function Navbar() {
           </Link>
           
           {/* Desktop Search Bar */}
-          <div className="hidden lg:flex relative w-[320px]">
-            <div className="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
-              <Search className="w-4 h-4 text-slate-400" />
-            </div>
-            <input
-              type="text"
-              className="block w-full py-2.5 pl-10 pr-4 text-sm text-slate-900 border border-slate-200 rounded-full bg-slate-50 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all placeholder:text-slate-400 shadow-inner"
-              placeholder="Search 100+ tools..."
-              aria-label="Search tools"
-            />
+          <div className="hidden lg:flex relative ml-4 xl:ml-8">
+            <GlobalSearch className="w-[350px] xl:w-[450px]" />
           </div>
         </div>
 
@@ -59,13 +52,11 @@ export function Navbar() {
         <nav className="hidden lg:flex items-center gap-6 xl:gap-8 justify-center flex-1">
           <MegaMenu />
           
-          <Link href="/pricing" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">
-            Pricing
+          <Link href="/tools" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">
+            Browse Tools
           </Link>
-          
-          <Link href="/blog" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">
-            Blog
-          </Link>
+
+
           
           <div className="flex items-center gap-1.5 text-sm font-medium text-slate-400 cursor-not-allowed">
             API

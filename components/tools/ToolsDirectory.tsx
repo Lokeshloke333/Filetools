@@ -1,0 +1,182 @@
+"use client";
+
+import React, { useState, useMemo } from "react";
+import { FeaturedCategories, CATEGORY_DATA } from "./FeaturedCategories";
+import { ToolsFilterBar, SortOption } from "./ToolsFilterBar";
+import { ToolGrid } from "./ToolGrid";
+import { TOOLS } from "@/lib/tools";
+import { Search, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+
+import { useSearchParams, useRouter } from "next/navigation";
+
+const CATEGORIES = ["All Tools", "Image", "PDF", "Video", "Audio", "AI", "Utilities"];
+const POPULAR_SEARCHES = ["Compress Image", "Resize Image", "Crop Image", "PDF", "Convert", "PNG", "JPG", "WEBP"];
+
+export function ToolsDirectory() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const initialSearch = searchParams.get("search") || "";
+
+  const [selectedCategory, setSelectedCategory] = useState("All Tools");
+  const [searchQuery, setSearchQuery] = useState(initialSearch);
+  const [sortBy, setSortBy] = useState<SortOption>("popular");
+
+  // Sync state if URL changes (e.g. from GlobalSearch in Navbar while already on the page)
+  React.useEffect(() => {
+    const q = searchParams.get("search") || "";
+    setSearchQuery(q);
+    if (q) setSelectedCategory("All Tools");
+  }, [searchParams]);
+
+  // Calculate counts for categories
+  const toolCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    TOOLS.forEach((tool) => {
+      counts[tool.category] = (counts[tool.category] || 0) + 1;
+    });
+    return counts;
+  }, []);
+
+  // Filter and sort tools
+  const filteredAndSortedTools = useMemo(() => {
+    let result = [...TOOLS];
+
+    // Filter by Category
+    if (selectedCategory !== "All Tools") {
+      result = result.filter((tool) => tool.category === selectedCategory);
+    }
+
+    // Filter by Search
+    if (searchQuery.trim().length > 0) {
+      const lowerQuery = searchQuery.toLowerCase();
+      result = result.filter((tool) => {
+        return (
+          tool.title.toLowerCase().includes(lowerQuery) ||
+          tool.description.toLowerCase().includes(lowerQuery) ||
+          tool.keywords.some((k) => k.toLowerCase().includes(lowerQuery)) ||
+          tool.category.toLowerCase().includes(lowerQuery)
+        );
+      });
+    }
+
+    // Sort
+    result.sort((a, b) => {
+      if (sortBy === "popular") {
+        if (a.popular && !b.popular) return -1;
+        if (!a.popular && b.popular) return 1;
+        // Fallback to active vs coming-soon
+        if (a.status === "active" && b.status !== "active") return -1;
+        if (a.status !== "active" && b.status === "active") return 1;
+      } else if (sortBy === "newest") {
+        if (a.status === "active" && b.status !== "active") return -1;
+        if (a.status !== "active" && b.status === "active") return 1;
+      } else if (sortBy === "alphabetical") {
+        return a.title.localeCompare(b.title);
+      }
+      return 0;
+    });
+
+    return result;
+  }, [selectedCategory, searchQuery, sortBy]);
+
+  const handlePopularSearch = (term: string) => {
+    router.push(`/tools?search=${encodeURIComponent(term)}`);
+    const toolsSection = document.getElementById("all-tools-grid");
+    if (toolsSection) {
+      toolsSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  return (
+    <div className="flex flex-col">
+      {/* 1. Sticky Search + Filter Bar */}
+      <ToolsFilterBar
+        categories={CATEGORIES}
+        selectedCategory={selectedCategory}
+        onSelectCategory={setSelectedCategory}
+        searchQuery={searchQuery}
+        onSearchChange={setSearchQuery}
+        sortBy={sortBy}
+        onSortChange={setSortBy}
+      />
+
+      {/* 2. Dynamic Categories Section */}
+      <div className="container mx-auto px-4 md:px-6 pt-10">
+        <AnimatePresence mode="wait">
+          {selectedCategory === "All Tools" && (
+            <motion.div
+              key="featured-categories"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+            >
+              <FeaturedCategories onSelectCategory={setSelectedCategory} toolCounts={toolCounts} />
+            </motion.div>
+          )}
+        </AnimatePresence>
+        
+        <div id="all-tools-grid" className="scroll-mt-40 mt-8 mb-16">
+          
+          {/* Section Heading with Dynamic Title and Clear Button */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
+            <div>
+              <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
+                {selectedCategory === "All Tools" ? "All Tools" : `${selectedCategory} Tools`}
+              </h2>
+              <p className="text-slate-500 mt-1 font-medium">
+                {filteredAndSortedTools.length} {filteredAndSortedTools.length === 1 ? "tool" : "tools"} available
+              </p>
+            </div>
+            
+            {selectedCategory !== "All Tools" && (
+              <button
+                onClick={() => {
+                  setSelectedCategory("All Tools");
+                  setSearchQuery("");
+                }}
+                className="inline-flex items-center gap-1 text-sm font-medium text-slate-500 hover:text-slate-800 transition-colors self-start sm:self-auto"
+              >
+                <X className="w-4 h-4" />
+                Clear
+              </button>
+            )}
+          </div>
+
+          {/* 3. All Tools Grid with Animation */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={selectedCategory + searchQuery + sortBy}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+            >
+              <ToolGrid tools={filteredAndSortedTools} />
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* 4. Popular Searches */}
+        <div className="border-t border-slate-200 pt-10 pb-16">
+          <h3 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+            <Search className="w-5 h-5 text-slate-400" />
+            Popular Searches
+          </h3>
+          <div className="flex flex-wrap gap-2">
+            {POPULAR_SEARCHES.map((term) => (
+              <button
+                key={term}
+                onClick={() => handlePopularSearch(term)}
+                className="px-4 py-2 bg-slate-50 border border-slate-200 text-slate-600 rounded-full text-sm font-medium hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition-colors"
+              >
+                {term}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

@@ -4,14 +4,13 @@ import React from "react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { AdPlaceholder } from "@/components/AdPlaceholder";
-import { Breadcrumb } from "./Breadcrumb";
+import { Breadcrumb } from "@/components/navigation/Breadcrumb";
 
 interface ToolLayoutProps {
   children: React.ReactNode;
-  breadcrumbs: { label: string; href?: string }[];
 }
 
-export function ToolLayout({ children, breadcrumbs }: ToolLayoutProps) {
+export function ToolLayout({ children }: ToolLayoutProps) {
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 font-sans text-slate-900">
       <Navbar />
@@ -20,7 +19,7 @@ export function ToolLayout({ children, breadcrumbs }: ToolLayoutProps) {
         {/* Breadcrumb Area */}
         <div className="border-b border-slate-200 bg-white mb-6">
           <div className="container mx-auto px-4 md:px-6 py-3">
-            <Breadcrumb items={breadcrumbs} />
+            <Breadcrumb />
           </div>
         </div>
 

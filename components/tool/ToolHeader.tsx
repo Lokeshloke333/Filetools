@@ -1,13 +1,11 @@
 import React from "react";
-import { ChevronLeft, Check } from "lucide-react";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { Check } from "lucide-react";
+import { BackButton } from "@/components/navigation/BackButton";
 
 interface ToolHeaderProps {
   title: string;
   subtitle: string;
   icon: React.ReactNode;
-  backHref?: string;
   iconColor?: string;
 }
 
@@ -15,7 +13,6 @@ export function ToolHeader({
   title,
   subtitle,
   icon,
-  backHref = "/tools/image",
   iconColor = "bg-purple-100 text-purple-600",
 }: ToolHeaderProps) {
   const badges = ["Free", "No signup", "Fast", "Secure"];
@@ -24,11 +21,7 @@ export function ToolHeader({
     <div className="flex flex-col items-center sm:items-start lg:flex-row gap-6 lg:gap-8">
       
       {/* Back Button */}
-      <Link href={backHref} className="hidden sm:block mt-1">
-        <Button variant="outline" size="icon" className="w-10 h-10 rounded-full border-slate-200 text-slate-500 hover:text-slate-800">
-          <ChevronLeft className="w-5 h-5" />
-        </Button>
-      </Link>
+      <BackButton className="hidden sm:inline-flex mt-1" />
       
       <div className="flex flex-col items-center sm:items-start text-center sm:text-left flex-1">
         <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 mb-4">
