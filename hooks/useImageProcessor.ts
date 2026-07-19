@@ -9,6 +9,7 @@ export interface ProcessorResult {
   filename: string;
   width: number;
   height: number;
+  outputFormat: string;
 }
 
 export function useImageProcessor(toolEndpoint: string) {
@@ -49,6 +50,8 @@ export function useImageProcessor(toolEndpoint: string) {
 
       const preview = URL.createObjectURL(blob);
 
+      const outputFormat = filename.split('.').pop()?.toUpperCase() || "";
+
       setResult({
         preview,
         originalSize,
@@ -57,6 +60,7 @@ export function useImageProcessor(toolEndpoint: string) {
         filename,
         width,
         height,
+        outputFormat,
       });
       
       toast.success("Image processed successfully!");
