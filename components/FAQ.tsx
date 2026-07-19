@@ -1,0 +1,64 @@
+"use client";
+
+import React from "react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "./ui/accordion";
+
+export function FAQ() {
+  const faqs = [
+    {
+      question: "Is FileTools really free to use?",
+      answer: "Yes! Our basic tools are completely free to use with generous daily limits. For heavy users and professionals, we offer premium plans with unlimited access and advanced features.",
+    },
+    {
+      question: "Are my files safe and secure?",
+      answer: "Absolutely. We use 256-bit TLS encryption for all file transfers. Your files are processed on secure servers and are automatically and permanently deleted within 2 hours of processing. We do not look at, copy, or analyze your files.",
+    },
+    {
+      question: "What is the maximum file size limit?",
+      answer: "Free users can upload files up to 100MB. Premium users enjoy upload limits up to 2GB depending on their specific subscription plan.",
+    },
+    {
+      question: "Do I need to install any software?",
+      answer: "No. FileTools is 100% web-based. You don't need to install anything on your device. It works perfectly on Windows, Mac, Linux, iOS, and Android browsers.",
+    },
+    {
+      question: "Can I use FileTools on my mobile phone?",
+      answer: "Yes! Our website is fully responsive and optimized for mobile devices, allowing you to convert and edit files on the go.",
+    },
+  ];
+
+  return (
+    <section className="py-20 bg-white">
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="text-center max-w-2xl mx-auto mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 tracking-tight">
+            Frequently Asked Questions
+          </h2>
+          <p className="text-slate-600 text-lg">
+            Everything you need to know about the product and billing.
+          </p>
+        </div>
+
+        <div className="max-w-3xl mx-auto">
+          <Accordion type="single" collapsible className="w-full">
+            {faqs.map((faq, i) => (
+              <AccordionItem key={i} value={`item-${i}`}>
+                <AccordionTrigger className="text-left text-lg font-semibold text-slate-800 hover:text-blue-600">
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-slate-600 leading-relaxed text-base">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </div>
+    </section>
+  );
+}

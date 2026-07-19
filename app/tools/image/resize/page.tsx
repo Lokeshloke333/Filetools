@@ -1,0 +1,269 @@
+"use client";
+
+import React, { useState } from "react";
+import { ToolLayout } from "@/components/tool/ToolLayout";
+import { ToolHeader } from "@/components/tool/ToolHeader";
+import { UploadArea } from "@/components/tool/UploadArea";
+import { ToolSettings } from "@/components/tool/ToolSettings";
+import { RelatedTools } from "@/components/tool/RelatedTools";
+import { FAQSection } from "@/components/tool/FAQSection";
+import { AboutTool } from "@/components/tool/AboutTool";
+import { AdPlaceholder } from "@/components/AdPlaceholder";
+import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
+import { Maximize, Wand2, Lightbulb, Loader2 } from "lucide-react";
+import { useImageUpload } from "@/hooks/useImageUpload";
+import { useImageProcessor } from "@/hooks/useImageProcessor";
+import { useDownload } from "@/hooks/useDownload";
+import { ImagePreview } from "@/components/tool/ImagePreview";
+import { ResultCard } from "@/components/tool/ResultCard";
+
+export default function ResizeImagePage() {
+  const [width, setWidth] = useState<string>("");
+  const [height, setHeight] = useState<string>("");
+  const [maintainAspectRatio, setMaintainAspectRatio] = useState(true);
+  const [fit, setFit] = useState("inside");
+  const [format, setFormat] = useState("ORIGINAL");
+
+  const { file, handleFileSelect, clearFile } = useImageUpload();
+  const { isProcessing: isResizing, result, processImage: resizeImage, clearResult } = useImageProcessor("resize");
+  const { handleDownload } = useDownload();
+
+  const handleResize = () => {
+    if (!file) return;
+    resizeImage(file, {
+      width: width ? parseInt(width) : "",
+      height: height ? parseInt(height) : "",
+      maintainAspectRatio,
+      fit,
+      format,
+    });
+  };
+
+  const handleReset = () => {
+    clearFile();
+    clearResult();
+    setWidth("");
+    setHeight("");
+  };
+
+  const breadcrumbs = [
+    { label: "Image Tools", href: "/tools/image" },
+    { label: "Resize Image" },
+  ];
+
+  const faqs = [
+    {
+      question: "Will resizing my image reduce its quality?",
+      answer: "We use advanced resampling algorithms to ensure the highest possible quality when enlarging or shrinking your images.",
+    },
+    {
+      question: "What is Maintain Aspect Ratio?",
+      answer: "When this is enabled, the image will preserve its original proportions so it won't look stretched or squished.",
+    },
+    {
+      question: "Are my files stored after processing?",
+      answer: "No. All files are automatically and permanently deleted from our servers within 2 hours of processing. We respect your privacy and never store or look at your files.",
+    },
+  ];
+
+  const inputClasses = "flex h-11 w-full rounded-xl border border-slate-200 bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-50";
+
+  return (
+    <ToolLayout breadcrumbs={breadcrumbs}>
+      
+      {/* 2-Column Tool Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        {/* Left Side: Header & Upload */}
+        <div className="lg:col-span-2 flex flex-col gap-6">
+          <ToolHeader 
+            title="Resize Image"
+            subtitle="Resize images to any dimensions while maintaining excellent quality"
+            icon={<Maximize className="w-6 h-6" />}
+          />
+          
+          {!file && !result && (
+            <UploadArea 
+              acceptedFormats="JPG, PNG, WebP, GIF, AVIF"
+              maxSizeMB={50}
+              onFileSelect={handleFileSelect}
+            />
+          )}
+
+          {file && !result && (
+            <div className="relative">
+              {isResizing && (
+                <div className="absolute inset-0 z-20 bg-white/60 backdrop-blur-sm rounded-3xl flex flex-col items-center justify-center border border-white/40 shadow-sm">
+                  <div className="w-16 h-16 bg-blue-600 rounded-2xl shadow-xl shadow-blue-600/20 flex items-center justify-center animate-pulse mb-4">
+                    <Loader2 className="w-8 h-8 text-white animate-spin" />
+                  </div>
+                  <h3 className="text-xl font-bold text-slate-800 mb-2">Resizing your image...</h3>
+                  <p className="text-slate-500 font-medium">Please wait a moment</p>
+                </div>
+              )}
+              <ImagePreview 
+                file={file} 
+                onClear={clearFile} 
+              />
+            </div>
+          )}
+
+          {result && file && (
+            <ResultCard 
+              result={result} 
+              originalFile={file} 
+              onDownload={() => handleDownload(result.preview, result.filename)} 
+              onReset={handleReset} 
+              mode="resize"
+            />
+          )}
+
+          <div className="hidden lg:block mt-2">
+             <AdPlaceholder width="w-full" height="h-[90px]" label="ADVERTISEMENT 728 x 90" />
+          </div>
+        </div>
+
+        {/* Right Side: Settings */}
+        <div className="lg:col-span-1">
+          <ToolSettings>
+            
+            {/* Dimensions */}
+            <div className="space-y-4">
+              <Label className="text-slate-700 font-semibold">Dimensions</Label>
+              <div className="flex gap-4">
+                <div className="space-y-2 flex-1">
+                  <Label className="text-xs text-slate-500 font-medium">Width (px)</Label>
+                  <input 
+                    type="number"
+                    value={width}
+                    onChange={(e) => setWidth(e.target.value)}
+                    placeholder="Auto"
+                    className={inputClasses}
+                    disabled={isResizing || result !== null}
+                  />
+                </div>
+                <div className="space-y-2 flex-1">
+                  <Label className="text-xs text-slate-500 font-medium">Height (px)</Label>
+                  <input 
+                    type="number"
+                    value={height}
+                    onChange={(e) => setHeight(e.target.value)}
+                    placeholder="Auto"
+                    className={inputClasses}
+                    disabled={isResizing || result !== null}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Resize Mode */}
+            <div className="space-y-3 pt-2">
+              <Label className="text-slate-700 font-semibold">Resize Mode</Label>
+              <Select value={fit} onValueChange={setFit} disabled={isResizing || result !== null}>
+                <SelectTrigger className="w-full h-11 rounded-xl">
+                  <SelectValue placeholder="Select mode" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="inside">Inside (Fit without cropping)</SelectItem>
+                  <SelectItem value="outside">Outside (Fill covering bounding box)</SelectItem>
+                  <SelectItem value="cover">Cover (Crop to fit)</SelectItem>
+                  <SelectItem value="contain">Contain (Letterbox to fit)</SelectItem>
+                  <SelectItem value="fill">Fill (Stretch to fit)</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Output Format */}
+            <div className="space-y-3 pt-2">
+              <Label className="text-slate-700 font-semibold">Output Format</Label>
+              <Select value={format} onValueChange={setFormat} disabled={isResizing || result !== null}>
+                <SelectTrigger className="w-full h-11 rounded-xl">
+                  <SelectValue placeholder="Select format" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="ORIGINAL">Keep original</SelectItem>
+                  <SelectItem value="WEBP">WEBP</SelectItem>
+                  <SelectItem value="JPG">JPG</SelectItem>
+                  <SelectItem value="PNG">PNG</SelectItem>
+                  <SelectItem value="AVIF">AVIF</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Toggles */}
+            <div className="space-y-4 pt-2">
+              <div className="flex items-center justify-between">
+                <Label htmlFor="aspect" className="text-slate-700 font-semibold cursor-pointer">Maintain Aspect Ratio</Label>
+                <Switch 
+                  id="aspect" 
+                  checked={maintainAspectRatio} 
+                  onCheckedChange={setMaintainAspectRatio} 
+                  disabled={isResizing || result !== null}
+                />
+              </div>
+            </div>
+
+            {/* Action Button */}
+            <div className="pt-4 pb-2">
+              <Button 
+                size="lg" 
+                className="w-full h-14 rounded-2xl text-base font-bold shadow-lg shadow-blue-500/20 transition-all disabled:opacity-70 disabled:shadow-none"
+                onClick={handleResize}
+                disabled={!file || isResizing || result !== null || (!width && !height)}
+              >
+                {isResizing ? (
+                  <>
+                    <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                    Resizing...
+                  </>
+                ) : (
+                  <>
+                    <Wand2 className="w-5 h-5 mr-2" />
+                    Resize Image
+                  </>
+                )}
+              </Button>
+            </div>
+
+            {/* Pro Tip */}
+            <div className="mt-auto bg-blue-50/50 border border-blue-100 rounded-2xl p-4 flex gap-3">
+              <Lightbulb className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" />
+              <p className="text-sm text-blue-800 leading-relaxed font-medium">
+                <span className="font-bold">Pro Tip:</span> Leave one dimension blank and turn on Maintain Aspect Ratio to automatically calculate the correct size!
+              </p>
+            </div>
+
+          </ToolSettings>
+        </div>
+
+        {/* Mobile Ad */}
+        <div className="lg:hidden w-full">
+           <AdPlaceholder width="w-full" height="h-[90px]" label="ADVERTISEMENT 728 x 90" />
+        </div>
+
+      </div>
+
+      <RelatedTools />
+      
+      <FAQSection faqs={faqs} />
+      
+      <AboutTool 
+        title="About Resize Image"
+        content={
+          <>
+            <p>
+              Our resize image tool gives you pixel-perfect control over your pictures. Easily change dimensions for social media, print, or web performance.
+            </p>
+            <p>
+              Files are processed entirely on our servers using fast native image manipulation libraries. Your uploads are encrypted in transit and deleted automatically — we never store your content.
+            </p>
+          </>
+        }
+      />
+
+    </ToolLayout>
+  );
+}
