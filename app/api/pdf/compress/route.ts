@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
 
     const compressedBytes = await compressPdf(file, level);
 
-    return new NextResponse(compressedBytes, {
+    return new NextResponse(compressedBytes as unknown as BodyInit, {
       status: 200,
       headers: {
         "Content-Type": "application/pdf",

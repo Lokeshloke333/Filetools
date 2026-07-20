@@ -39,7 +39,7 @@ export function PdfSplitResultCard({ result, onDownload, onReset }: PdfSplitResu
       <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
         <Button 
           size="lg" 
-          className="h-14 px-8 rounded-2xl text-base font-bold bg-green-600 hover:bg-green-700 text-white shadow-lg shadow-green-500/20 transition-all"
+          className="h-14 px-8 text-base font-bold bg-green-600 hover:bg-green-700 shadow-green-500/20"
           onClick={onDownload}
         >
           <Download className="w-5 h-5 mr-2" />

@@ -7,7 +7,7 @@ import { ArrowRight } from "lucide-react";
 export function CTA() {
   return (
     <section className="py-24 bg-white">
-      <div className="container mx-auto px-4 md:px-6">
+      <div className="container mx-auto px-4 md:px-6 max-w-7xl">
         <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-blue-600 to-indigo-700 px-6 py-16 md:py-20 text-center shadow-2xl">
           {/* Decorative Elements */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
@@ -22,7 +22,7 @@ export function CTA() {
             </p>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button size="lg" className="bg-white text-blue-700 hover:bg-slate-50 rounded-full px-8 w-full sm:w-auto h-14 text-base font-bold shadow-lg">
+              <Button size="lg" className="bg-white text-blue-700 hover:bg-slate-50 px-8 w-full sm:w-auto h-14 text-base font-bold">
                 Get Started Free
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>

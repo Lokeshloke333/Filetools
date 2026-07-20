@@ -9,7 +9,7 @@ import Link from "next/link";
 export function Hero() {
   return (
     <section className="relative overflow-hidden bg-slate-50 pt-16 md:pt-24 lg:pt-10 pb-16">
-      <div className="container mx-auto px-4 md:px-6">
+      <div className="container mx-auto px-4 md:px-6 max-w-7xl">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
 
           {/* Left Content */}
@@ -51,7 +51,7 @@ export function Hero() {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="flex flex-col sm:flex-row gap-4 items-start sm:items-center"
             >
-              <Button size="lg" className="rounded-full px-8 gap-2 w-full sm:w-auto text-base" asChild>
+              <Button size="lg" className="px-8 gap-2 w-full sm:w-auto text-base" asChild>
                 <Link href="/tools">
                   Browse All Tools
                   <ArrowRight className="w-4 h-4" />

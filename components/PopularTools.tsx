@@ -1,7 +1,6 @@
 "use client";
 
 import { ArrowRight, LucideIcon } from "lucide-react";
-import { AdPlaceholder } from "./AdPlaceholder";
 import Link from "next/link";
 import { TOOLS } from "@/lib/tools";
 
@@ -63,7 +62,7 @@ export function PopularTools() {
 
   return (
     <section className="py-16 md:py-24 bg-slate-50/50">
-      <div className="container mx-auto px-4 md:px-6">
+      <div className="container mx-auto px-4 md:px-6 max-w-7xl">
         
         {/* Header */}
         <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-10 gap-4">
@@ -76,59 +75,39 @@ export function PopularTools() {
           </Link>
         </div>
 
-        {/* Content Area with Ads */}
-        <div className="grid lg:grid-cols-12 gap-8 items-start">
-          
-          {/* Left Ad - Desktop only */}
-          <div className="hidden lg:block lg:col-span-2 sticky top-24">
-            <AdPlaceholder height="h-[600px]" className="rounded-xl" />
+        {/* Content Area */}
+        <div className="flex flex-col gap-12">
+          <div className="grid md:grid-cols-2 gap-4">
+            {activeTools.map((tool) => (
+              <ToolCard
+                key={tool.title}
+                href={tool.href}
+                title={tool.title}
+                description={tool.description}
+                icon={tool.icon}
+                color={tool.color}
+              />
+            ))}
           </div>
 
-          {/* Tools Grid */}
-          <div className="lg:col-span-8 flex flex-col gap-12">
+          <div>
+            <h3 className="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+              Coming Soon
+            </h3>
             <div className="grid md:grid-cols-2 gap-4">
-              {activeTools.map((tool) => (
+              {comingSoonTools.map((tool) => (
                 <ToolCard
                   key={tool.title}
-                  href={tool.href}
+                  href="#"
                   title={tool.title}
                   description={tool.description}
                   icon={tool.icon}
                   color={tool.color}
+                  isComingSoon={true}
                 />
               ))}
             </div>
-
-            <div>
-              <h3 className="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
-                Coming Soon
-              </h3>
-              <div className="grid md:grid-cols-2 gap-4">
-                {comingSoonTools.map((tool) => (
-                  <ToolCard
-                    key={tool.title}
-                    href="#"
-                    title={tool.title}
-                    description={tool.description}
-                    icon={tool.icon}
-                    color={tool.color}
-                    isComingSoon={true}
-                  />
-                ))}
-              </div>
-            </div>
-            
-            {/* Mobile/Tablet Ad - under the tools */}
-            <div className="lg:hidden">
-              <AdPlaceholder height="h-[250px]" className="rounded-xl w-full max-w-md mx-auto" />
-            </div>
           </div>
-
-          {/* Right Ad - Desktop only */}
-          <div className="hidden lg:block lg:col-span-2 sticky top-24">
-            <AdPlaceholder height="h-[600px]" className="rounded-xl" />
-          </div>
-
         </div>
 
       </div>

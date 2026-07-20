@@ -8,7 +8,6 @@ import { ToolSettings } from "@/components/tool/ToolSettings";
 import { RelatedTools } from "@/components/tool/RelatedTools";
 import { FAQSection } from "@/components/tool/FAQSection";
 import { AboutTool } from "@/components/tool/AboutTool";
-import { AdPlaceholder } from "@/components/AdPlaceholder";
 import { Button } from "@/components/ui/button";
 import { FileDown, Loader2, Lightbulb, FileText, Minimize } from "lucide-react";
 import { usePdfCompress } from "@/hooks/usePdfCompress";
@@ -94,9 +93,6 @@ export default function CompressPdfPage() {
             />
           )}
 
-          <div className="hidden lg:block mt-2">
-             <AdPlaceholder width="w-full" height="h-[90px]" label="ADVERTISEMENT 728 x 90" />
-          </div>
         </div>
 
         {/* Right Side: Settings / Actions */}
@@ -125,7 +121,7 @@ export default function CompressPdfPage() {
             <div className="pt-2 pb-2">
               <Button 
                 size="lg" 
-                className="w-full h-14 rounded-2xl text-base font-bold shadow-lg shadow-blue-500/20 transition-all disabled:opacity-70 disabled:shadow-none"
+                className="w-full h-14 text-base font-bold disabled:opacity-70 disabled:shadow-none"
                 onClick={compressFile}
                 disabled={!fileInfo || isProcessing || result !== null}
               >
@@ -152,11 +148,6 @@ export default function CompressPdfPage() {
             </div>
 
           </ToolSettings>
-        </div>
-
-        {/* Mobile Ad */}
-        <div className="lg:hidden w-full">
-           <AdPlaceholder width="w-full" height="h-[90px]" label="ADVERTISEMENT 728 x 90" />
         </div>
 
       </div>

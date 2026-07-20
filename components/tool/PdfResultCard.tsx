@@ -64,7 +64,7 @@ export function PdfResultCard({ result, onDownload, onReset }: PdfResultCardProp
         <Button 
           onClick={onDownload} 
           size="lg" 
-          className="flex-1 h-14 rounded-2xl text-base font-bold shadow-lg shadow-blue-500/20"
+          className="flex-1 h-14 text-base font-bold"
         >
           <Download className="w-5 h-5 mr-2" />
           Download PDF

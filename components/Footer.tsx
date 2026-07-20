@@ -3,19 +3,12 @@
 import React from "react";
 import Link from "next/link";
 import { Layers, Globe, Users, Mail, MessageCircle, Send } from "lucide-react";
-import { AdPlaceholder } from "./AdPlaceholder";
 import { Button } from "./ui/button";
 
 export function Footer() {
   return (
     <footer className="bg-[#0b1120] text-slate-400 pt-16 pb-8 border-t border-slate-800">
-      <div className="container mx-auto px-4 md:px-6">
-
-        {/* Footer Top Ad */}
-        <div className="mb-16 border-b border-slate-800 pb-16">
-          <AdPlaceholder height="h-24" className="bg-slate-900/50 border-slate-800 text-slate-500" />
-        </div>
-
+      <div className="container mx-auto px-4 md:px-6 max-w-7xl">
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 lg:gap-12 mb-16">
 
           {/* Column 1: Brand & Newsletter */}

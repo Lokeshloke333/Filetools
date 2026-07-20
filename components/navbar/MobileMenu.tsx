@@ -97,7 +97,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
 
             {/* CTA */}
             <div className="pt-8 pb-4">
-              <Button size="lg" className="w-full rounded-full text-base font-bold shadow-md shadow-blue-500/20 bg-blue-600 hover:bg-blue-700">
+              <Button size="lg" className="w-full text-base font-bold">
                 Start Free
               </Button>
             </div>
