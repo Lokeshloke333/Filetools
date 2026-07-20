@@ -19,6 +19,7 @@ import { useImageProcessor } from "@/hooks/useImageProcessor";
 import { useDownload } from "@/hooks/useDownload";
 import { ImagePreview } from "@/components/tool/ImagePreview";
 import { ResultCard } from "@/components/tool/ResultCard";
+import { FILE_LIMITS } from "@/lib/config";
 
 export default function RotateImagePage() {
   const [rotationType, setRotationType] = useState("90");
@@ -28,7 +29,7 @@ export default function RotateImagePage() {
   const [customBg, setCustomBg] = useState("#ffffff");
   const [format, setFormat] = useState("ORIGINAL");
 
-  const { file, handleFileSelect, clearFile } = useImageUpload();
+  const { file, uploadError, handleFileSelect, clearFile, clearUploadError } = useImageUpload();
   const { isProcessing: isRotating, result, processImage: rotateImage, clearResult } = useImageProcessor("rotate");
   const { handleDownload } = useDownload();
 
@@ -90,8 +91,10 @@ export default function RotateImagePage() {
           {!file && !result && (
             <UploadArea 
               acceptedFormats="JPG, PNG, WebP, GIF, AVIF"
-              maxSizeMB={50}
+              maxSizeMB={FILE_LIMITS.IMAGE_MAX_SIZE_MB}
               onFileSelect={handleFileSelect}
+              error={uploadError}
+              onErrorClear={clearUploadError}
             />
           )}
 

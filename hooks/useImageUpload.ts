@@ -1,6 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
-import { validateImage } from "@/lib/utils/image";
-import { toast } from "sonner";
+import { validateImage } from "@/lib/image/validation";
 
 export interface FileWithPreview extends File {
   preview: string;
@@ -8,6 +7,7 @@ export interface FileWithPreview extends File {
 
 export function useImageUpload() {
   const [file, setFile] = useState<FileWithPreview | null>(null);
+  const [uploadError, setUploadError] = useState<string | null>(null);
 
   // Clean up object URL when component unmounts or file changes
   useEffect(() => {
@@ -22,9 +22,11 @@ export function useImageUpload() {
     const { valid, error } = validateImage(selectedFile);
     
     if (!valid) {
-      toast.error(error || "Invalid file");
+      setUploadError(`${selectedFile.name}: ${error || "Invalid file"}`);
       return;
     }
+
+    setUploadError(null);
 
     // Revoke previous preview if exists
     if (file?.preview) {
@@ -45,9 +47,15 @@ export function useImageUpload() {
     setFile(null);
   }, []);
 
+  const clearUploadError = useCallback(() => {
+    setUploadError(null);
+  }, []);
+
   return {
     file,
+    uploadError,
     handleFileSelect,
-    clearFile
+    clearFile,
+    clearUploadError
   };
 }

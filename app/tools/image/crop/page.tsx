@@ -18,13 +18,14 @@ import { useImageProcessor } from "@/hooks/useImageProcessor";
 import { useDownload } from "@/hooks/useDownload";
 import { InteractiveCropPreview } from "@/components/tool/InteractiveCropPreview";
 import { ResultCard } from "@/components/tool/ResultCard";
+import { FILE_LIMITS } from "@/lib/config";
 
 export default function CropImagePage() {
   const [aspectRatio, setAspectRatio] = useState<number | undefined>(undefined);
   const [format, setFormat] = useState("ORIGINAL");
   const [cropData, setCropData] = useState<{ x: number; y: number; width: number; height: number } | null>(null);
 
-  const { file, handleFileSelect, clearFile } = useImageUpload();
+  const { file, uploadError, handleFileSelect, clearFile, clearUploadError } = useImageUpload();
   const { isProcessing: isCropping, result, processImage: cropImage, clearResult } = useImageProcessor("crop");
   const { handleDownload } = useDownload();
 
@@ -81,8 +82,10 @@ export default function CropImagePage() {
           {!file && !result && (
             <UploadArea 
               acceptedFormats="JPG, PNG, WebP, GIF, AVIF"
-              maxSizeMB={50}
+              maxSizeMB={FILE_LIMITS.IMAGE_MAX_SIZE_MB}
               onFileSelect={handleFileSelect}
+              error={uploadError}
+              onErrorClear={clearUploadError}
             />
           )}
 

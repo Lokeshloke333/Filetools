@@ -15,11 +15,13 @@ export interface ProcessorResult {
 export function useImageProcessor(toolEndpoint: string) {
   const [isProcessing, setIsProcessing] = useState(false);
   const [result, setResult] = useState<ProcessorResult | null>(null);
+  const [uploadError, setUploadError] = useState<string | null>(null);
 
   const processImage = useCallback(async (file: File, settings: Record<string, any>) => {
     try {
       setIsProcessing(true);
       setResult(null);
+      setUploadError(null);
 
       const formData = new FormData();
       formData.append("file", file);
@@ -66,7 +68,7 @@ export function useImageProcessor(toolEndpoint: string) {
       toast.success("Image processed successfully!");
     } catch (error: any) {
       console.error("Processing error:", error);
-      toast.error(error.message || "An error occurred during processing.");
+      setUploadError(error.message || "An error occurred during processing.");
     } finally {
       setIsProcessing(false);
     }
@@ -81,10 +83,16 @@ export function useImageProcessor(toolEndpoint: string) {
     });
   }, []);
 
+  const clearUploadError = useCallback(() => {
+    setUploadError(null);
+  }, []);
+
   return {
     isProcessing,
     result,
+    uploadError,
     processImage,
-    clearResult
+    clearResult,
+    clearUploadError
   };
 }

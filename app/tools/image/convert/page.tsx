@@ -20,13 +20,14 @@ import { useImageProcessor } from "@/hooks/useImageProcessor";
 import { useDownload } from "@/hooks/useDownload";
 import { ImagePreview } from "@/components/tool/ImagePreview";
 import { ResultCard } from "@/components/tool/ResultCard";
+import { FILE_LIMITS } from "@/lib/config";
 
 export default function ConvertImagePage() {
   const [targetFormat, setTargetFormat] = useState("JPG");
   const [quality, setQuality] = useState([80]);
   const [stripMetadata, setStripMetadata] = useState(true);
 
-  const { file, handleFileSelect, clearFile } = useImageUpload();
+  const { file, uploadError, handleFileSelect, clearFile, clearUploadError } = useImageUpload();
   const { isProcessing: isConverting, result, processImage: convertImage, clearResult } = useImageProcessor("convert");
   const { handleDownload } = useDownload();
 
@@ -82,8 +83,10 @@ export default function ConvertImagePage() {
           {!file && !result && (
             <UploadArea 
               acceptedFormats="JPG, PNG, WebP, GIF, AVIF"
-              maxSizeMB={50}
+              maxSizeMB={FILE_LIMITS.IMAGE_MAX_SIZE_MB}
               onFileSelect={handleFileSelect}
+              error={uploadError}
+              onErrorClear={clearUploadError}
             />
           )}
 

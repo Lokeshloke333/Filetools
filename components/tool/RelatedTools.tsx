@@ -1,6 +1,9 @@
-import React from "react";
+"use client";
+
+import React, { useMemo } from "react";
 import Link from "next/link";
-import { Maximize, Crop, RotateCw, RefreshCw } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { TOOLS } from "@/lib/tools";
 
 interface RelatedToolCardProps {
   title: string;
@@ -29,40 +32,57 @@ function RelatedToolCard({ title, description, icon, href }: RelatedToolCardProp
 }
 
 export function RelatedTools() {
-  const tools = [
-    {
-      title: "Resize Image",
-      description: "Change image dimensions to any size you need without distortion.",
-      icon: <Maximize className="w-6 h-6" />,
-      href: "/tools/image/resize"
-    },
-    {
-      title: "Crop Image",
-      description: "Crop images to perfect proportions for social media or print.",
-      icon: <Crop className="w-6 h-6" />,
-      href: "/tools/image/crop"
-    },
-    {
-      title: "Rotate Image",
-      description: "Rotate or flip images effortlessly with a single click.",
-      icon: <RotateCw className="w-6 h-6" />,
-      href: "/tools/image/rotate"
-    },
-    {
-      title: "Convert Image",
-      description: "Convert between JPG, PNG, WebP, AVIF, and other formats.",
-      icon: <RefreshCw className="w-6 h-6" />,
-      href: "/tools/image/convert"
+  const pathname = usePathname();
+
+  const relatedToolsToDisplay = useMemo(() => {
+    if (!pathname) return [];
+    
+    // Normalize pathname to avoid trailing slash mismatches
+    const normalizedPath = pathname.replace(/\/$/, "");
+    
+    const currentTool = TOOLS.find(t => t.href === normalizedPath);
+    const otherTools = TOOLS.filter(t => t.href !== normalizedPath);
+    
+    if (currentTool) {
+      // Get all tools from the same category
+      const categoryTools = otherTools.filter(t => t.category === currentTool.category);
+      
+      // Return up to 6 tools. If < 4, it returns all available in the category.
+      return categoryTools.slice(0, 6);
     }
-  ];
+    
+    // Fallback if not matching any tool
+    return otherTools.slice(0, 4);
+  }, [pathname]);
+
+  if (relatedToolsToDisplay.length === 0) {
+    return null;
+  }
+
+  // Determine grid layout based on number of items to make it look good
+  const itemCount = relatedToolsToDisplay.length;
+  const gridClasses = 
+    itemCount === 1 ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" :
+    itemCount === 2 ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" :
+    itemCount === 3 ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" :
+    "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"; // 4, 5, 6 items
 
   return (
     <div className="mt-12">
       <h2 className="text-2xl font-bold text-slate-900 mb-6 tracking-tight">Related Tools</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-        {tools.map((tool, idx) => (
-          <RelatedToolCard key={idx} {...tool} />
-        ))}
+      <div className={`grid gap-4 md:gap-6 ${gridClasses}`}>
+        {relatedToolsToDisplay.map((tool) => {
+          const IconComponent = tool.icon;
+          return (
+            <RelatedToolCard 
+              key={tool.id}
+              title={tool.title}
+              description={tool.description}
+              icon={<IconComponent className="w-6 h-6" />}
+              href={tool.href}
+            />
+          );
+        })}
       </div>
     </div>
   );

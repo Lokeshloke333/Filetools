@@ -20,6 +20,7 @@ import { useImageProcessor } from "@/hooks/useImageProcessor";
 import { useDownload } from "@/hooks/useDownload";
 import { ImagePreview } from "@/components/tool/ImagePreview";
 import { ResultCard } from "@/components/tool/ResultCard";
+import { FILE_LIMITS } from "@/lib/config";
 
 export default function CompressImagePage() {
   const [quality, setQuality] = useState([80]);
@@ -27,7 +28,7 @@ export default function CompressImagePage() {
   const [stripMetadata, setStripMetadata] = useState(true);
   const [progressive, setProgressive] = useState(true);
 
-  const { file, handleFileSelect, clearFile } = useImageUpload();
+  const { file, uploadError, handleFileSelect, clearFile, clearUploadError } = useImageUpload();
   const { isProcessing: isCompressing, result, processImage: compressImage, clearResult } = useImageProcessor("compress");
   const { handleDownload } = useDownload();
 
@@ -82,8 +83,10 @@ export default function CompressImagePage() {
           {!file && !result && (
             <UploadArea 
               acceptedFormats="JPG, PNG, WebP, GIF, AVIF"
-              maxSizeMB={50}
+              maxSizeMB={FILE_LIMITS.IMAGE_MAX_SIZE_MB}
               onFileSelect={handleFileSelect}
+              error={uploadError}
+              onErrorClear={clearUploadError}
             />
           )}
 

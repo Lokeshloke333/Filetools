@@ -19,6 +19,7 @@ import { useImageProcessor } from "@/hooks/useImageProcessor";
 import { useDownload } from "@/hooks/useDownload";
 import { ImagePreview } from "@/components/tool/ImagePreview";
 import { ResultCard } from "@/components/tool/ResultCard";
+import { FILE_LIMITS } from "@/lib/config";
 
 export default function ResizeImagePage() {
   const [width, setWidth] = useState<string>("");
@@ -27,7 +28,7 @@ export default function ResizeImagePage() {
   const [fit, setFit] = useState("inside");
   const [format, setFormat] = useState("ORIGINAL");
 
-  const { file, handleFileSelect, clearFile } = useImageUpload();
+  const { file, uploadError, handleFileSelect, clearFile, clearUploadError } = useImageUpload();
   const { isProcessing: isResizing, result, processImage: resizeImage, clearResult } = useImageProcessor("resize");
   const { handleDownload } = useDownload();
 
@@ -83,8 +84,10 @@ export default function ResizeImagePage() {
           {!file && !result && (
             <UploadArea 
               acceptedFormats="JPG, PNG, WebP, GIF, AVIF"
-              maxSizeMB={50}
+              maxSizeMB={FILE_LIMITS.IMAGE_MAX_SIZE_MB}
               onFileSelect={handleFileSelect}
+              error={uploadError}
+              onErrorClear={clearUploadError}
             />
           )}
 
