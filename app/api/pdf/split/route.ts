@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
 
     const { zipBytes, fileCount } = await splitPdf(file, mode, ranges, extract);
 
-    return new NextResponse(zipBytes, {
+    return new NextResponse(Buffer.from(zipBytes), {
       status: 200,
       headers: {
         "Content-Type": "application/zip",

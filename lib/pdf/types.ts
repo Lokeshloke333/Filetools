@@ -10,7 +10,7 @@ export interface PdfMergeResult {
   filename: string;
   originalSize: number;
   processedSize: number;
-  totalPageCount: number;
+  totalPageCount?: number;
 }
 
 export type PdfSplitMode = "every_page" | "ranges" | "extract";

@@ -2,7 +2,7 @@ import React from "react";
 import { formatFileSize } from "@/lib/utils/image";
 import { Button } from "@/components/ui/button";
 import { Download, RefreshCw, Layers, FileText } from "lucide-react";
-import { PdfMergeResult } from "@/hooks/usePdfMerge";
+import { PdfMergeResult } from "@/lib/pdf/types";
 
 interface PdfResultCardProps {
   result: PdfMergeResult;
@@ -21,9 +21,11 @@ export function PdfResultCard({ result, onDownload, onReset }: PdfResultCardProp
             <Layers className="w-5 h-5" />
             <span>Merged Successfully</span>
           </div>
-          <div className="text-sm font-medium text-blue-600">
-            {result.totalPageCount} Pages
-          </div>
+          {result.totalPageCount !== undefined && (
+            <div className="text-sm font-medium text-blue-600">
+              {result.totalPageCount} Pages
+            </div>
+          )}
         </div>
 
         {/* Info Area */}
@@ -49,12 +51,16 @@ export function PdfResultCard({ result, onDownload, onReset }: PdfResultCardProp
               <span className="text-lg font-bold text-green-600">{formatFileSize(result.processedSize)}</span>
             </div>
 
-            <div className="w-px h-10 bg-slate-200"></div>
-            
-            <div className="flex flex-col items-center">
-              <span className="text-sm text-slate-500 font-medium mb-1">Total Pages</span>
-              <span className="text-lg font-bold text-blue-600">{result.totalPageCount}</span>
-            </div>
+            {result.totalPageCount !== undefined && (
+              <>
+                <div className="w-px h-10 bg-slate-200"></div>
+                
+                <div className="flex flex-col items-center">
+                  <span className="text-sm text-slate-500 font-medium mb-1">Total Pages</span>
+                  <span className="text-lg font-bold text-blue-600">{result.totalPageCount}</span>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

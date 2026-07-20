@@ -69,8 +69,8 @@ export default function SplitPdfPage() {
             <UploadArea 
               acceptedFormats="PDF"
               maxSizeMB={FILE_LIMITS.PDF_MAX_SIZE_MB}
-              onFileSelect={(file) => handleFileSelect([file])}
-              onFilesSelect={handleFileSelect}
+              onFileSelect={handleFileSelect}
+              onFilesSelect={(files) => handleFileSelect(files[0])}
               multiple={false}
               error={uploadError}
               onErrorClear={clearUploadError}

@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
       settings,
     });
 
-    return new NextResponse(new Uint8Array(result.buffer), {
+    return new NextResponse(Buffer.from(result.buffer), {
       headers: {
         "Content-Type": `image/${result.outputFormat}`,
         "Content-Disposition": `attachment; filename="${result.filename}"`,

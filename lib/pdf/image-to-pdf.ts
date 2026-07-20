@@ -45,7 +45,7 @@ export async function convertImagesToPdf(
     // Convert WEBP, AVIF, GIF, etc. to JPG using sharp
     if (type !== "image/jpeg" && type !== "image/png") {
       const buffer = Buffer.from(arrayBuffer);
-      arrayBuffer = await sharp(buffer).jpeg({ quality: 90 }).toBuffer();
+      arrayBuffer = await sharp(buffer).jpeg({ quality: 90 }).toBuffer() as unknown as ArrayBuffer;
     }
 
     let pdfImage;

@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
 
     const mergedPdfBytes = await mergePdfs(files);
 
-    return new NextResponse(mergedPdfBytes, {
+    return new NextResponse(Buffer.from(mergedPdfBytes), {
       status: 200,
       headers: {
         "Content-Type": "application/pdf",
