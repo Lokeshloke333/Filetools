@@ -30,7 +30,7 @@ export function Navbar() {
           : "bg-white border-b border-slate-100"
       }`}
     >
-      <div className="container mx-auto px-4 lg:px-6 h-16 lg:h-20 flex items-center justify-between gap-4">
+      <div className="max-w-7xl mx-auto w-full px-4 lg:px-6 h-16 lg:h-20 flex items-center justify-between gap-4">
         
         {/* Left Section: Logo & Search */}
         <div className="flex items-center gap-6 flex-1 md:flex-none">
@@ -68,8 +68,8 @@ export function Navbar() {
 
         {/* CTA Button Desktop */}
         <div className="hidden lg:flex items-center flex-shrink-0">
-          <Button className="rounded-full px-6 py-2.5 h-auto text-sm font-bold bg-blue-600 hover:bg-blue-700 shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/30 hover:-translate-y-0.5">
-            Start Free
+          <Button asChild className="rounded-full px-6 py-2.5 h-auto text-sm font-bold bg-blue-600 hover:bg-blue-700 shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/30 hover:-translate-y-0.5">
+            <Link href="/contact">Contact</Link>
           </Button>
         </div>
 

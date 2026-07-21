@@ -8,7 +8,6 @@ import { ToolSettings } from "@/components/tool/ToolSettings";
 import { RelatedTools } from "@/components/tool/RelatedTools";
 import { FAQSection } from "@/components/tool/FAQSection";
 import { AboutTool } from "@/components/tool/AboutTool";
-import { AdPlaceholder } from "@/components/AdPlaceholder";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -117,10 +116,6 @@ export default function CompressImagePage() {
               mode="compress"
             />
           )}
-
-          <div className="hidden lg:block mt-2">
-             <AdPlaceholder width="w-full" height="h-[90px]" label="ADVERTISEMENT 728 x 90" />
-          </div>
         </div>
 
         {/* Right Side: Settings */}
@@ -217,11 +212,6 @@ export default function CompressImagePage() {
             </div>
 
           </ToolSettings>
-        </div>
-
-        {/* Mobile Ad */}
-        <div className="lg:hidden w-full">
-           <AdPlaceholder width="w-full" height="h-[90px]" label="ADVERTISEMENT 728 x 90" />
         </div>
 
       </div>

@@ -6,7 +6,6 @@ import { PopularTools } from "@/components/PopularTools";
 import { Features } from "@/components/Features";
 import { HowItWorks } from "@/components/HowItWorks";
 import { Statistics } from "@/components/Statistics";
-import { ComingSoon } from "@/components/ComingSoon";
 import { Testimonials } from "@/components/Testimonials";
 import { FAQ } from "@/components/FAQ";
 import { BlogSection } from "@/components/BlogSection";
@@ -24,7 +23,6 @@ export default function Home() {
       <Features />
       <HowItWorks />
       <Statistics />
-      <ComingSoon />
       <Testimonials />
       <FAQ />
       <BlogSection />

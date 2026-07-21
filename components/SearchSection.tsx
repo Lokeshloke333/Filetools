@@ -30,7 +30,7 @@ export function SearchSection() {
 
   return (
     <section className="bg-white py-12 md:py-16">
-      <div className="container mx-auto px-4 md:px-6">
+      <div className="max-w-7xl mx-auto w-full px-4 md:px-6">
         <div className="max-w-3xl mx-auto flex flex-col items-center">
           
           {/* Search Bar */}

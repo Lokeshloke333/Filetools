@@ -8,7 +8,6 @@ import { ToolSettings } from "@/components/tool/ToolSettings";
 import { RelatedTools } from "@/components/tool/RelatedTools";
 import { FAQSection } from "@/components/tool/FAQSection";
 import { AboutTool } from "@/components/tool/AboutTool";
-import { AdPlaceholder } from "@/components/AdPlaceholder";
 import { Button } from "@/components/ui/button";
 import { Loader2, Lightbulb, Image as ImageIcon, Settings2, FileText, Download, CheckCircle, RefreshCcw } from "lucide-react";
 import { usePdfToImage } from "@/hooks/usePdfToImage";
@@ -157,10 +156,6 @@ export default function PdfToImagePage() {
               </div>
             </div>
           )}
-
-          <div className="hidden lg:block mt-2">
-             <AdPlaceholder width="w-full" height="h-[90px]" label="ADVERTISEMENT 728 x 90" />
-          </div>
         </div>
 
         {/* Right Side: Settings / Actions */}
@@ -216,11 +211,6 @@ export default function PdfToImagePage() {
             </div>
 
           </ToolSettings>
-        </div>
-
-        {/* Mobile Ad */}
-        <div className="lg:hidden w-full">
-           <AdPlaceholder width="w-full" height="h-[90px]" label="ADVERTISEMENT 728 x 90" />
         </div>
 
       </div>

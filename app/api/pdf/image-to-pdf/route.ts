@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
 
     const pdfBytes = await convertImagesToPdf(files, options);
 
-    return new NextResponse(pdfBytes, {
+    return new NextResponse(pdfBytes as any, {
       status: 200,
       headers: {
         "Content-Type": "application/pdf",

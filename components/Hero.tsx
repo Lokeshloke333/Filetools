@@ -9,7 +9,7 @@ import Link from "next/link";
 export function Hero() {
   return (
     <section className="relative overflow-hidden bg-slate-50 pt-16 md:pt-24 lg:pt-10 pb-16">
-      <div className="container mx-auto px-4 md:px-6">
+      <div className="max-w-7xl mx-auto w-full px-4 md:px-6">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
 
           {/* Left Content */}

@@ -8,7 +8,6 @@ import { ToolSettings } from "@/components/tool/ToolSettings";
 import { RelatedTools } from "@/components/tool/RelatedTools";
 import { FAQSection } from "@/components/tool/FAQSection";
 import { AboutTool } from "@/components/tool/AboutTool";
-import { AdPlaceholder } from "@/components/AdPlaceholder";
 import { Button } from "@/components/ui/button";
 import { FileDown, Loader2, Lightbulb, FileText, Minimize } from "lucide-react";
 import { usePdfCompress } from "@/hooks/usePdfCompress";
@@ -66,8 +65,7 @@ export default function CompressPdfPage() {
             <UploadArea 
               acceptedFormats="PDF"
               maxSizeMB={FILE_LIMITS.PDF_MAX_SIZE_MB}
-              onFileSelect={(file) => handleFileSelect([file])}
-              onFilesSelect={handleFileSelect}
+              onFileSelect={handleFileSelect}
               multiple={false}
               error={uploadError}
               onErrorClear={clearUploadError}
@@ -93,10 +91,6 @@ export default function CompressPdfPage() {
               onReset={clearAll} 
             />
           )}
-
-          <div className="hidden lg:block mt-2">
-             <AdPlaceholder width="w-full" height="h-[90px]" label="ADVERTISEMENT 728 x 90" />
-          </div>
         </div>
 
         {/* Right Side: Settings / Actions */}
@@ -152,11 +146,6 @@ export default function CompressPdfPage() {
             </div>
 
           </ToolSettings>
-        </div>
-
-        {/* Mobile Ad */}
-        <div className="lg:hidden w-full">
-           <AdPlaceholder width="w-full" height="h-[90px]" label="ADVERTISEMENT 728 x 90" />
         </div>
 
       </div>

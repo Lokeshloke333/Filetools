@@ -8,7 +8,7 @@ import {
   AccordionTrigger,
 } from "./ui/accordion";
 
-export function FAQ() {
+export function FAQ({ limit }: { limit?: number }) {
   const faqs = [
     {
       question: "Is FileTools really free to use?",
@@ -32,9 +32,11 @@ export function FAQ() {
     },
   ];
 
+  const displayedFaqs = limit ? faqs.slice(0, limit) : faqs;
+
   return (
     <section className="py-20 bg-white">
-      <div className="container mx-auto px-4 md:px-6">
+      <div className="max-w-7xl mx-auto w-full px-4 md:px-6">
         <div className="text-center max-w-2xl mx-auto mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 tracking-tight">
             Frequently Asked Questions
@@ -46,7 +48,7 @@ export function FAQ() {
 
         <div className="max-w-3xl mx-auto">
           <Accordion type="single" collapsible className="w-full">
-            {faqs.map((faq, i) => (
+            {displayedFaqs.map((faq, i) => (
               <AccordionItem key={i} value={`item-${i}`}>
                 <AccordionTrigger className="text-left text-lg font-semibold text-slate-800 hover:text-blue-600">
                   {faq.question}

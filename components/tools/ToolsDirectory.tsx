@@ -102,7 +102,7 @@ export function ToolsDirectory() {
       />
 
       {/* 2. Dynamic Categories Section */}
-      <div className="container mx-auto px-4 md:px-6 pt-10">
+      <div className="max-w-7xl mx-auto w-full px-4 md:px-6 pt-10">
         <AnimatePresence mode="wait">
           {selectedCategory === "All Tools" && (
             <motion.div

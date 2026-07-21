@@ -19,7 +19,7 @@ export default function ToolsPage() {
       
       {/* Page Header / Hero Section */}
       <div className="bg-white border-b border-slate-200 pt-8 pb-12">
-        <div className="container mx-auto px-4 md:px-6">
+        <div className="max-w-7xl mx-auto w-full px-4 md:px-6">
           
           {/* Breadcrumb */}
           <nav className="flex items-center text-sm text-slate-500 font-medium mb-8">

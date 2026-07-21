@@ -34,10 +34,10 @@ export function Breadcrumb() {
   } else if (pathname === "/tools") {
     // If we are on the /tools page itself, just remove the href from the last item
     breadcrumbs[1].href = "";
+  } else if (pathname === "/contact") {
+    breadcrumbs[1] = { label: "Contact Us", href: "" };
   } else {
-    // Optional fallback for other pages (like /pricing, etc.)
-    // In this app, we mostly use it in ToolLayout so currentTool will likely match.
-    // We could parse the pathname if needed, but for now we just handle tools.
+    // Fallback for other pages
   }
 
   return (

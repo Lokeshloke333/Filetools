@@ -2,7 +2,7 @@ import React from "react";
 import { formatFileSize } from "@/lib/utils/image";
 import { Button } from "@/components/ui/button";
 import { Download, RefreshCw, Layers, FileText } from "lucide-react";
-import { PdfMergeResult } from "@/hooks/usePdfMerge";
+import { PdfMergeResult } from "@/lib/pdf/types";
 
 interface PdfResultCardProps {
   result: PdfMergeResult;

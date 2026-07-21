@@ -3,13 +3,7 @@ import { toast } from "sonner";
 import { FileWithPreview } from "./useImageUpload";
 import { validateImage } from "@/lib/image/validation";
 import { ImageToPdfOptions } from "@/lib/pdf/image-to-pdf";
-
-export interface PdfResult {
-  url: string;
-  filename: string;
-  originalSize: number;
-  processedSize: number;
-}
+import { PdfMergeResult } from "@/lib/pdf/types";
 
 export function useImageToPdf() {
   const [files, setFiles] = useState<FileWithPreview[]>([]);
@@ -22,7 +16,7 @@ export function useImageToPdf() {
   
   const [isProcessing, setIsProcessing] = useState(false);
   const [statusMessage, setStatusMessage] = useState<string>("");
-  const [result, setResult] = useState<PdfResult | null>(null);
+  const [result, setResult] = useState<PdfMergeResult | null>(null);
   const [uploadError, setUploadError] = useState<string | null>(null);
 
   // Clean up object URLs when component unmounts
@@ -148,6 +142,7 @@ export function useImageToPdf() {
         filename: "converted-document.pdf",
         originalSize: totalOriginalSize,
         processedSize: blob.size,
+        totalPageCount: files.length,
       });
 
       toast.success("PDF generated successfully!");
