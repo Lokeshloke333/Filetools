@@ -32,4 +32,10 @@ export interface PdfCompressResult {
   processedSize: number;
 }
 
+export interface PdfUnlockResult {
+  url: string;
+  filename: string;
+  originalSize: number;
+  processedSize: number;
+}
 

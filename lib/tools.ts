@@ -2,7 +2,7 @@ import {
   ImageDown, Maximize, Crop, RotateCw, FileDown, 
   FileText, Layers, Scissors, FileImage, 
   Video, Music, Wand2, QrCode, Sparkles, Image, Wrench, FileVideo, Mic, Barcode, Palette, Code,
-  LucideIcon 
+  LucideIcon, Unlock
 } from "lucide-react";
 
 export interface ToolDefinition {
@@ -123,6 +123,19 @@ export const TOOLS: ToolDefinition[] = [
     href: "/tools/pdf/split",
     icon: Scissors,
     color: "text-amber-500",
+    status: "active",
+    featured: false,
+    popular: true,
+  },
+  {
+    id: "unlock-pdf",
+    title: "Unlock PDF",
+    description: "Remove password protection from PDF.",
+    category: "PDF",
+    keywords: ["unlock", "pdf", "password", "decrypt", "remove", "protection", "security"],
+    href: "/tools/pdf/unlock",
+    icon: Unlock,
+    color: "text-green-500",
     status: "active",
     featured: false,
     popular: true,
