@@ -61,51 +61,32 @@ export function Footer() {
             </div> */}
           </div>
 
-          {/* Column 2: Top Tools */}
-          <div className="col-span-1">
-            <h4 className="text-white font-semibold mb-6">Top Tools</h4>
+          {/* Column 2: Products */}
+          <div className="col-span-1 lg:col-span-1 lg:col-start-4">
+            <h4 className="text-white font-semibold mb-6">Products</h4>
             <ul className="space-y-4 text-sm">
-              <li><Link href="#" className="hover:text-blue-400 transition-colors">PDF to Word</Link></li>
-              <li><Link href="#" className="hover:text-blue-400 transition-colors">Merge PDF</Link></li>
-              <li><Link href="#" className="hover:text-blue-400 transition-colors">Compress Image</Link></li>
-              <li><Link href="#" className="hover:text-blue-400 transition-colors">Crop Video</Link></li>
-              <li><Link href="#" className="hover:text-blue-400 transition-colors">Audio Cutter</Link></li>
+              <li><Link href="/#tools" className="hover:text-blue-400 transition-colors">All Tools</Link></li>
+              <li><Link href="/tools/image" className="hover:text-blue-400 transition-colors">Image Tools</Link></li>
+              <li><Link href="/tools/pdf" className="hover:text-blue-400 transition-colors">PDF Tools</Link></li>
             </ul>
           </div>
 
-          {/* Column 3: Solutions */}
-          <div className="col-span-1">
-            <h4 className="text-white font-semibold mb-6">Solutions</h4>
-            <ul className="space-y-4 text-sm">
-              <li><Link href="#" className="hover:text-blue-400 transition-colors">For Business</Link></li>
-              <li><Link href="#" className="hover:text-blue-400 transition-colors">For Developers</Link></li>
-              <li><Link href="#" className="hover:text-blue-400 transition-colors">For Education</Link></li>
-              <li><Link href="#" className="hover:text-blue-400 transition-colors">API Access</Link></li>
-              <li><Link href="#" className="hover:text-blue-400 transition-colors">Integrations</Link></li>
-            </ul>
-          </div>
-
-          {/* Column 4: Company */}
+          {/* Column 3: Company */}
           <div className="col-span-1">
             <h4 className="text-white font-semibold mb-6">Company</h4>
             <ul className="space-y-4 text-sm">
               <li><Link href="#" className="hover:text-blue-400 transition-colors">About Us</Link></li>
-              <li><Link href="#" className="hover:text-blue-400 transition-colors">Careers</Link></li>
-              <li><Link href="#" className="hover:text-blue-400 transition-colors">Blog</Link></li>
-              <li><Link href="#" className="hover:text-blue-400 transition-colors">Contact</Link></li>
-              <li><Link href="#" className="hover:text-blue-400 transition-colors">Partners</Link></li>
+              <li><Link href="#" className="hover:text-blue-400 transition-colors">Contact Us</Link></li>
             </ul>
           </div>
 
-          {/* Column 5: Legal */}
+          {/* Column 4: Legal */}
           <div className="col-span-1">
             <h4 className="text-white font-semibold mb-6">Legal</h4>
             <ul className="space-y-4 text-sm">
-              <li><Link href="#" className="hover:text-blue-400 transition-colors">Terms of Service</Link></li>
-              <li><Link href="#" className="hover:text-blue-400 transition-colors">Privacy Policy</Link></li>
-              <li><Link href="#" className="hover:text-blue-400 transition-colors">Cookie Policy</Link></li>
-              <li><Link href="#" className="hover:text-blue-400 transition-colors">Security</Link></li>
-              <li><Link href="#" className="hover:text-blue-400 transition-colors">GDPR</Link></li>
+              <li><Link href="/privacy-policy" className="hover:text-blue-400 transition-colors">Privacy Policy</Link></li>
+              <li><Link href="/terms-and-conditions" className="hover:text-blue-400 transition-colors">Terms & Conditions</Link></li>
+              <li><Link href="/cookie-policy" className="hover:text-blue-400 transition-colors">Cookie Policy</Link></li>
             </ul>
           </div>
 
