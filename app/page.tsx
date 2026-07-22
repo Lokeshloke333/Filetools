@@ -1,6 +1,5 @@
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
-import { SearchSection } from "@/components/SearchSection";
 import { CategorySection } from "@/components/CategorySection";
 import { PopularTools } from "@/components/PopularTools";
 import { Features } from "@/components/Features";
@@ -17,7 +16,6 @@ export default function Home() {
     <main className="min-h-screen flex flex-col bg-slate-50">
       <Navbar />
       <Hero />
-      <SearchSection />
       <PopularTools />
       <CategorySection />
       <Features />

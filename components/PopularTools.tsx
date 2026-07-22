@@ -8,9 +8,9 @@ import { ToolGrid } from "@/components/tools/ToolGrid";
 export function PopularTools() {
 
   return (
-    <section className="py-16 md:py-24 bg-slate-50/50">
+    <section className="py-16 md:py-24">
       <div className="max-w-7xl mx-auto w-full px-4 md:px-6">
-        
+
         {/* Header */}
         <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-10 gap-4">
           <div>

@@ -14,6 +14,7 @@ interface GlobalSearchProps {
   initialValue?: string;
   onSearchChange?: (query: string) => void;
   className?: string;
+  inputRef?: React.Ref<HTMLInputElement>;
 }
 
 export function GlobalSearch({
@@ -21,6 +22,7 @@ export function GlobalSearch({
   initialValue = "",
   onSearchChange,
   className,
+  inputRef,
 }: GlobalSearchProps) {
   const [query, setQuery] = useState(initialValue);
   const [isOpen, setIsOpen] = useState(false);
@@ -118,6 +120,13 @@ export function GlobalSearch({
           router.push(selected.href);
           // Don't clear query immediately so it feels snappy, but can if desired
         }
+      } else if (searchResults.length === 1) {
+        // Exactly one match, navigate directly
+        const selected = searchResults[0];
+        if (selected.status === "active") {
+          setIsOpen(false);
+          router.push(selected.href);
+        }
       } else {
         // No suggestion selected, just submit the search to /tools
         handleSearchSubmit();
@@ -141,26 +150,27 @@ export function GlobalSearch({
     <div className={cn("relative", className)} ref={searchRef}>
       <div className={cn(
         "relative w-full",
-        variant === "hero" ? "shadow-lg shadow-slate-200/50 rounded-2xl group transition-all duration-300 focus-within:shadow-xl focus-within:shadow-blue-200/50" : ""
+        variant === "hero" ? "shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-2xl group transition-all duration-500 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:shadow-blue-200/40 focus-within:shadow-[0_8px_40px_rgba(59,130,246,0.2)]" : ""
       )}>
         <div className={cn(
-          "absolute inset-y-0 left-0 flex items-center pointer-events-none",
+          "absolute inset-y-0 left-0 flex items-center pointer-events-none z-10",
           variant === "hero" ? "pl-5" : "pl-3.5"
         )}>
           <Search className={cn(
-            variant === "hero" ? "w-6 h-6 text-slate-400 group-focus-within:text-blue-500 transition-colors" : "w-4 h-4 text-slate-400"
+            variant === "hero" ? "w-5 h-5 2xl:w-6 2xl:h-6 text-slate-400 group-hover:text-blue-500 group-hover:scale-110 group-focus-within:text-blue-600 group-focus-within:scale-110 transition-all duration-300" : "w-4 h-4 text-slate-400"
           )} />
         </div>
         <input
+          ref={inputRef}
           type="text"
           value={query}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
           className={cn(
-            "block w-full text-slate-900 border border-slate-200 outline-none focus:border-blue-500 transition-all placeholder:text-slate-400",
+            "block w-full text-slate-900 border border-slate-200 outline-none transition-all placeholder:text-slate-400",
             variant === "hero" 
-              ? "p-5 pl-14 text-base md:text-lg rounded-2xl bg-white focus:ring-4 focus:ring-blue-500/10" 
-              : "py-2.5 pl-10 pr-4 text-sm rounded-full focus:ring-2 focus:ring-blue-500/20",
+              ? "p-4 pl-12 md:p-5 md:pl-12 2xl:p-6 2xl:pl-14 text-sm md:text-base 2xl:text-lg rounded-2xl bg-white/95 focus:bg-white hover:border-blue-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/15 backdrop-blur-sm" 
+              : "py-2.5 pl-10 pr-4 text-sm rounded-full focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500",
             variant === "navbar" ? "bg-slate-50 shadow-inner" : "",
             variant === "filterBar" ? "bg-white" : ""
           )}
@@ -170,7 +180,7 @@ export function GlobalSearch({
         {variant === "hero" && (
           <button 
             onClick={handleSearchSubmit}
-            className="absolute inset-y-2 right-2 px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-xl transition-colors"
+            className="absolute inset-y-2 right-2 px-4 md:px-6 2xl:px-8 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-xl transition-colors"
           >
             Search
           </button>
