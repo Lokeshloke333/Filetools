@@ -8,7 +8,7 @@ import { PDFDocument } from 'pdf-lib';
 export async function unlockPdf(file: File, password?: string): Promise<Uint8Array> {
   const arrayBuffer = await file.arrayBuffer();
   try {
-    const pdfDoc = await PDFDocument.load(arrayBuffer, { password });
+    const pdfDoc = await PDFDocument.load(arrayBuffer, { password } as any);
     
     // By default, saving the document without providing any new password options
     // will result in a decrypted (unlocked) PDF.

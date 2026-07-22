@@ -78,20 +78,20 @@ export function Hero() {
                     <Star key={i} className="w-4 h-4 fill-current" />
                   ))}
                 </div>
-                <span className="text-sm font-medium text-slate-600 mt-0.5">Trusted by 4M+ users</span>
+                <span className="text-sm font-medium text-slate-600 mt-0.5">Trusted by 50k+ users</span>
               </div>
             </motion.div>
           </div>
 
           {/* Right Floating Elements / UI Mockup */}
           <div className="relative h-[500px] lg:h-[600px] hidden md:block w-full">
-            
+
             {/* Background Container with overflow hidden for the gradient and effects */}
             <div className="absolute inset-0 bg-gradient-to-br from-[#1E3A8A] via-[#2563EB] to-[#3B82F6] rounded-[32px] border border-blue-400/30 shadow-2xl shadow-blue-900/40 overflow-hidden pointer-events-none">
               {/* Large radial glows */}
               <div className="absolute -top-[20%] -right-[10%] w-[70%] h-[70%] bg-blue-300/30 rounded-full blur-[120px] mix-blend-overlay"></div>
               <div className="absolute -bottom-[20%] -left-[10%] w-[60%] h-[60%] bg-indigo-300/20 rounded-full blur-[100px] mix-blend-overlay"></div>
-              
+
               {/* Light reflections */}
               <div className="absolute top-0 left-1/4 w-1/2 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
               <div className="absolute bottom-0 right-1/4 w-1/3 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
@@ -109,7 +109,7 @@ export function Hero() {
 
             {/* Foreground Container for UI Elements */}
             <div className="relative w-full h-full flex items-center justify-center p-8 z-10">
-              
+
               <div className="relative w-full max-w-[400px]">
                 {/* Main App Window Mockup */}
                 <motion.div
@@ -125,7 +125,7 @@ export function Hero() {
                     <div className="w-2.5 h-2.5 rounded-full bg-slate-200"></div>
                   </div>
                   <div className="p-4 space-y-3">
-                    
+
                     {/* Item 1 */}
                     <div className="flex items-center gap-3 p-3 rounded-xl bg-white border border-slate-50 shadow-sm transition-all hover:shadow-md">
                       <div className="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center flex-shrink-0">
@@ -212,7 +212,7 @@ export function Hero() {
                 </motion.div>
 
                 {/* Floating Cards */}
-                
+
                 {/* Top Left */}
                 <motion.div
                   initial={{ rotate: -3 }}
