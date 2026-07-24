@@ -8,7 +8,6 @@ import { HowItWorks } from "@/components/HowItWorks";
 import { Statistics } from "@/components/Statistics";
 import { Testimonials } from "@/components/Testimonials";
 import { FAQ } from "@/components/FAQ";
-import { BlogSection } from "@/components/BlogSection";
 import { CTA } from "@/components/CTA";
 import { Footer } from "@/components/Footer";
 
@@ -58,7 +57,6 @@ export default function Home() {
       <Statistics />
       <Testimonials />
       <FAQ />
-      <BlogSection />
       <CTA />
       <Footer />
     </main>

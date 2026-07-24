@@ -1,16 +1,13 @@
 "use client";
 
-import React from "react";
 import Link from "next/link";
+import { Mail } from "lucide-react";
 
 export function Footer() {
   return (
     <footer className="bg-[#0b1120] text-slate-400 pt-16 pb-8 border-t border-slate-800">
       <div className="max-w-7xl mx-auto w-full px-4 md:px-6">
 
-        {/* Footer Top Ad */}
-        <div className="mb-16 border-b border-slate-800 pb-16">
-        </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 lg:gap-12 mb-16">
 
@@ -23,6 +20,10 @@ export function Footer() {
             <p className="text-sm leading-relaxed mb-6 max-w-sm">
               The ultimate online toolkit for all your file conversion, compression, and editing needs. Secure, fast, and easy to use.
             </p>
+            <div className="flex items-center gap-2 text-sm mt-4">
+              <Mail className="w-4 h-4 text-slate-500" />
+              <a href="mailto:fileinator@gmail.com" className="hover:text-blue-400 transition-colors">fileinator@gmail.com</a>
+            </div>
 
             {/* Newsletter */}
             {/* <div>
@@ -54,8 +55,9 @@ export function Footer() {
           <div className="col-span-1">
             <h4 className="text-white font-semibold mb-6">Company</h4>
             <ul className="space-y-4 text-sm">
+              <li><Link href="/contact" className="hover:text-blue-400 transition-colors">Contact Us</Link></li>
               <li><Link href="#" className="hover:text-blue-400 transition-colors">About Us</Link></li>
-              <li><Link href="#" className="hover:text-blue-400 transition-colors">Contact Us</Link></li>
+              <li><Link href="/blog" className="hover:text-blue-400 transition-colors">Blog</Link></li>
             </ul>
           </div>
 

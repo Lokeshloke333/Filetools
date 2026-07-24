@@ -3,7 +3,7 @@
 
 import React, { useState, useMemo } from "react";
 import { FeaturedCategories, CATEGORY_DATA } from "./FeaturedCategories";
-import { ToolsFilterBar, SortOption } from "./ToolsFilterBar";
+import { ToolsFilterBar } from "./ToolsFilterBar";
 import { ToolGrid } from "./ToolGrid";
 import { TOOLS } from "@/lib/tools";
 import { Search, X } from "lucide-react";
@@ -21,7 +21,6 @@ export function ToolsDirectory() {
 
   const [selectedCategory, setSelectedCategory] = useState("All Tools");
   const [searchQuery, setSearchQuery] = useState(initialSearch);
-  const [sortBy, setSortBy] = useState<SortOption>("popular");
 
   // Sync state if URL changes (e.g. from GlobalSearch in Navbar while already on the page)
   React.useEffect(() => {
@@ -61,25 +60,9 @@ export function ToolsDirectory() {
       });
     }
 
-    // Sort
-    result.sort((a, b) => {
-      if (sortBy === "popular") {
-        if (a.popular && !b.popular) return -1;
-        if (!a.popular && b.popular) return 1;
-        // Fallback to active vs coming-soon
-        if (a.status === "active" && b.status !== "active") return -1;
-        if (a.status !== "active" && b.status === "active") return 1;
-      } else if (sortBy === "newest") {
-        if (a.status === "active" && b.status !== "active") return -1;
-        if (a.status !== "active" && b.status === "active") return 1;
-      } else if (sortBy === "alphabetical") {
-        return a.title.localeCompare(b.title);
-      }
-      return 0;
-    });
-
+    // Sort - Removed sortBy logic as requested by user, default sort by default order in TOOLS array
     return result;
-  }, [selectedCategory, searchQuery, sortBy]);
+  }, [selectedCategory, searchQuery]);
 
   const handlePopularSearch = (term: string) => {
     router.push(`/tools?search=${encodeURIComponent(term)}`);
@@ -98,8 +81,6 @@ export function ToolsDirectory() {
         onSelectCategory={setSelectedCategory}
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
-        sortBy={sortBy}
-        onSortChange={setSortBy}
       />
 
       {/* 2. Dynamic Categories Section */}
@@ -148,7 +129,7 @@ export function ToolsDirectory() {
           {/* 3. All Tools Grid with Animation */}
           <AnimatePresence mode="wait">
             <motion.div
-              key={selectedCategory + searchQuery + sortBy}
+              key={selectedCategory + searchQuery}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}

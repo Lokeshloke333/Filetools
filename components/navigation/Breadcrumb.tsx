@@ -36,6 +36,8 @@ export function Breadcrumb() {
     breadcrumbs[1].href = "";
   } else if (pathname === "/contact") {
     breadcrumbs[1] = { label: "Contact Us", href: "" };
+  } else if (pathname === "/blog") {
+    breadcrumbs[1] = { label: "Blog", href: "" };
   } else {
     // Fallback for other pages
   }

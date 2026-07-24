@@ -1,6 +1,9 @@
 import { Metadata } from "next";
 import { LegalLayout } from "@/components/legal/LegalLayout";
 import { Cookie } from "lucide-react";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { getBreadcrumbSchema } from "@/lib/seo/schema";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Cookie Policy",
@@ -32,19 +35,14 @@ export const metadata: Metadata = {
 };
 
 const sections = [
-  { id: "what-are-cookies", title: "What Cookies Are" },
-  { id: "types-of-cookies", title: "Types of Cookies" },
-  { id: "essential-cookies", title: "Essential Cookies" },
-  { id: "analytics-cookies", title: "Analytics Cookies" },
-  { id: "performance-cookies", title: "Performance Cookies" },
+  { id: "what-are-cookies", title: "What Are Cookies?" },
+  { id: "types-of-cookies", title: "Types of Cookies We Use" },
+  { id: "cookies-we-do-not-use", title: "Cookies We Do NOT Use" },
   { id: "managing-cookies", title: "Managing Cookies" },
-  { id: "third-party-cookies", title: "Third-party Cookies" },
-  { id: "changes", title: "Changes to Cookie Policy" },
-  { id: "contact", title: "Contact Information" },
+  { id: "third-party-services", title: "Third-Party Services" },
+  { id: "changes", title: "Changes to This Policy" },
+  { id: "contact", title: "Contact" },
 ];
-
-import { JsonLd } from "@/components/seo/JsonLd";
-import { getBreadcrumbSchema } from "@/lib/seo/schema";
 
 export default function CookiePolicyPage() {
   const breadcrumbs = getBreadcrumbSchema([
@@ -56,73 +54,112 @@ export default function CookiePolicyPage() {
     <>
       <JsonLd data={breadcrumbs} />
       <LegalLayout
-      title="Cookie Policy"
-      description="This policy explains how we use cookies and similar technologies to recognize you when you visit our website."
-      icon={<Cookie className="w-8 h-8" />}
-      lastUpdated="July 2026"
-      sections={sections}
-    >
-      <h2 id="what-are-cookies">What Cookies Are</h2>
-      <p>
-        Cookies are small data files that are placed on your computer or mobile device when you visit a website. 
-        Cookies are widely used by website owners in order to make their websites work, or to work more efficiently, 
-        as well as to provide reporting information.
-      </p>
+        title="Cookie Policy"
+        description="This policy explains how Fileinator uses cookies and similar technologies to ensure our tools run securely and efficiently."
+        icon={<Cookie className="w-8 h-8" />}
+        lastUpdated="July 2026"
+        sections={sections}
+      >
+        <h2 id="what-are-cookies">What Are Cookies?</h2>
+        <p>
+          Cookies are small text files placed on your computer, tablet, or mobile device when you visit a website. 
+          Websites use cookies to ensure proper functionality, improve security, and understand how visitors interact with the platform.
+        </p>
 
-      <h2 id="types-of-cookies">Types of Cookies</h2>
-      <p>
-        Cookies set by the website owner (in this case, Fileinator) are called "first-party cookies". 
-        Cookies set by parties other than the website owner are called "third-party cookies". 
-        We use both first-party and third-party cookies for several reasons.
-      </p>
+        <h2 id="types-of-cookies">Types of Cookies We Use</h2>
+        <div className="overflow-x-auto my-8">
+          <table className="w-full text-left border-collapse min-w-[600px]">
+            <thead>
+              <tr className="border-b-2 border-slate-200 bg-slate-50">
+                <th className="p-4 font-semibold text-slate-800 w-1/4">Category</th>
+                <th className="p-4 font-semibold text-slate-800 w-1/3">Purpose</th>
+                <th className="p-4 font-semibold text-slate-800 w-1/6">Duration</th>
+                <th className="p-4 font-semibold text-slate-800 w-1/4">Provider</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="border-b border-slate-100">
+                <td className="p-4 font-medium text-slate-900">Essential Cookies</td>
+                <td className="p-4 text-slate-600">
+                  <ul className="list-disc list-inside space-y-1">
+                    <li>Site functionality</li>
+                    <li>Security</li>
+                    <li>Session management</li>
+                    <li>Form protection</li>
+                    <li>Performance required for the website to work</li>
+                  </ul>
+                </td>
+                <td className="p-4 text-slate-600">Session / Persistent</td>
+                <td className="p-4 text-slate-600">Fileinator / Hosting Provider</td>
+              </tr>
+              <tr className="border-b border-slate-100 bg-slate-50/50">
+                <td className="p-4 font-medium text-slate-900">Analytics Cookies</td>
+                <td className="p-4 text-slate-600">
+                  <ul className="list-disc list-inside space-y-1">
+                    <li>Understand visitor behavior</li>
+                    <li>Improve user experience</li>
+                    <li>Measure traffic</li>
+                    <li>Detect usability issues</li>
+                    <li>Improve performance</li>
+                  </ul>
+                </td>
+                <td className="p-4 text-slate-600">Persistent</td>
+                <td className="p-4 text-slate-600">Google Analytics 4, Microsoft Clarity, Vercel Analytics</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <strong>Note:</strong> Analytics services may place cookies on your device depending on your browser settings and applicable privacy regulations.
+        </p>
 
-      <h2 id="essential-cookies">Essential Cookies</h2>
-      <p>
-        Some cookies are required for technical reasons in order for our Websites to operate, and we refer to these as 
-        "essential" or "strictly necessary" cookies. These include cookies that allow you to navigate our site securely 
-        and use its core features.
-      </p>
+        <h2 id="cookies-we-do-not-use">Cookies We Do NOT Use</h2>
+        <p>
+          Fileinator respects your privacy and currently does <strong>NOT</strong> use:
+        </p>
+        <ul className="list-disc list-inside mb-4 pl-4 space-y-2">
+          <li>Advertising cookies</li>
+          <li>Remarketing cookies</li>
+          <li>Third-party ad tracking</li>
+          <li>Behavioral profiling cookies</li>
+        </ul>
+        <p>
+          If advertising or promotional cookies are introduced in the future, this Cookie Policy will be updated accordingly to reflect those changes.
+        </p>
 
-      <h2 id="analytics-cookies">Analytics Cookies</h2>
-      <p>
-        These cookies collect information that is used either in aggregate form to help us understand how our Websites 
-        are being used or how effective our marketing campaigns are.
-      </p>
+        <h2 id="managing-cookies">Managing Cookies</h2>
+        <p>
+          You have full control over your cookie preferences. You can choose to:
+        </p>
+        <ul className="list-disc list-inside mb-4 pl-4 space-y-2">
+          <li>Delete cookies directly from your device.</li>
+          <li>Block cookies entirely.</li>
+          <li>Control and customize cookie settings within your web browser.</li>
+        </ul>
+        <p>
+          Please be aware that disabling <strong>Essential Cookies</strong> may affect core website functionality, potentially preventing certain file tools or secure forms from operating correctly.
+        </p>
 
-      <h2 id="performance-cookies">Performance Cookies</h2>
-      <p>
-        These cookies are used to enhance the performance and functionality of our Websites but are non-essential to 
-        their use. However, without these cookies, certain functionality (like videos) may become unavailable.
-      </p>
+        <h2 id="third-party-services">Third-Party Services</h2>
+        <p>
+          To monitor platform stability and understand user behavior, Fileinator utilizes secure third-party analytics services. These services may operate under their own privacy and cookie policies, including:
+        </p>
+        <ul className="list-disc list-inside mb-4 pl-4 space-y-2">
+          <li><a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Google Analytics</a></li>
+          <li><a href="https://privacy.microsoft.com/en-us/privacystatement" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Microsoft Clarity</a></li>
+          <li><a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Vercel</a></li>
+        </ul>
 
-      <h2 id="managing-cookies">Managing Cookies</h2>
-      <p>
-        You have the right to decide whether to accept or reject cookies. You can exercise your cookie rights by setting 
-        your preferences in the Cookie Consent Manager. You can also set or amend your web browser controls to accept 
-        or refuse cookies. If you choose to reject cookies, you may still use our website though your access to some 
-        functionality and areas of our website may be restricted.
-      </p>
+        <h2 id="changes">Changes to This Policy</h2>
+        <p>
+          Fileinator may update this Cookie Policy periodically as new technologies, tools, or services are introduced to the platform. We encourage you to review this page occasionally to stay informed about our use of cookies.
+        </p>
 
-      <h2 id="third-party-cookies">Third-party Cookies</h2>
-      <p>
-        In some special cases, we also use cookies provided by trusted third parties. The following section details which 
-        third party cookies you might encounter through this site. We use <strong>Google Analytics</strong> which is one of 
-        the most widespread and trusted analytics solutions on the web for helping us to understand how you use the site 
-        and ways that we can improve your experience.
-      </p>
-
-      <h2 id="changes">Changes to Cookie Policy</h2>
-      <p>
-        We may update this Cookie Policy from time to time in order to reflect, for example, changes to the cookies we 
-        use or for other operational, legal or regulatory reasons. Please therefore re-visit this Cookie Policy regularly 
-        to stay informed about our use of cookies and related technologies.
-      </p>
-
-      <h2 id="contact">Contact Information</h2>
-      <p>
-        If you have any questions about our use of cookies or other technologies, please email us at privacy@fileinator.example.com.
-      </p>
-    </LegalLayout>
+        <h2 id="contact">Contact</h2>
+        <p>
+          If you have any questions or concerns regarding our Cookie Policy or privacy practices, please reach out to us via our <Link href="/contact" className="text-blue-600 hover:underline font-medium">Contact page</Link>.
+        </p>
+      </LegalLayout>
     </>
   );
 }

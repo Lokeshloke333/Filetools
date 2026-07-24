@@ -3,10 +3,10 @@
 import React, { useEffect, useState } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { Breadcrumb } from "@/components/navigation/Breadcrumb";
 import { Button } from "@/components/ui/button";
 import { Mail, LayoutGrid } from "lucide-react";
 import Link from "next/link";
+import { PageHero } from "@/components/common/PageHero";
 
 export interface LegalSection {
   id: string;
@@ -60,31 +60,15 @@ export function LegalLayout({
       <Navbar />
 
       <main className="flex-grow flex flex-col">
-        {/* Breadcrumb Area */}
-        <div className="border-b border-slate-200 bg-white">
-          <div className="max-w-7xl mx-auto w-full px-4 md:px-6 py-3">
-            <Breadcrumb />
-          </div>
-        </div>
-
         {/* Hero Area */}
-        <div className="bg-white border-b border-slate-200 py-16 md:py-20 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-50 to-white/0 pointer-events-none"></div>
-          <div className="max-w-7xl mx-auto w-full px-4 md:px-6 relative z-10 text-center">
-            <div className="w-16 h-16 bg-blue-50 border border-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6 text-blue-600">
-              {icon}
-            </div>
-            <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">
-              {title}
-            </h1>
-            <p className="text-lg text-slate-500 max-w-2xl mx-auto mb-8 leading-relaxed">
-              {description}
-            </p>
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-slate-100 text-sm font-semibold text-slate-600">
-              Last Updated: {lastUpdated}
-            </div>
+        <PageHero 
+          title={title} 
+          description={description}
+        >
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/60 border border-slate-200/60 shadow-sm text-sm font-semibold text-slate-600">
+            Last Updated: {lastUpdated}
           </div>
-        </div>
+        </PageHero>
 
         {/* Main Content Area */}
         <div className="max-w-7xl mx-auto w-full px-4 md:px-6 py-16">

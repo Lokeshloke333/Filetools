@@ -55,13 +55,6 @@ export function Navbar() {
           </Link>
 
 
-          
-          <div className="flex items-center gap-1.5 text-sm font-medium text-slate-400 cursor-not-allowed">
-            API
-            <span className="text-[10px] bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded-full uppercase tracking-wider font-bold">
-              Soon
-            </span>
-          </div>
         </nav>
 
         {/* CTA Button Desktop */}
