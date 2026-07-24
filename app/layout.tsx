@@ -6,6 +6,7 @@ import { siteConfig } from "@/lib/site.config";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { getOrganizationSchema, getWebSiteSchema } from "@/lib/seo/schema";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
+import { MicrosoftClarity } from "@/components/analytics/MicrosoftClarity";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -115,6 +116,7 @@ export default function RootLayout({
         {children}
         <Toaster position="bottom-right" />
         <GoogleAnalytics />
+        <MicrosoftClarity />
       </body>
     </html>
   );
