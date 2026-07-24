@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { Button } from "./ui/button";
 import { ArrowRight } from "lucide-react";
 
@@ -18,20 +19,24 @@ export function CTA() {
               Ready to simplify your workflow?
             </h2>
             <p className="text-blue-100 text-lg md:text-xl mb-10 max-w-2xl mx-auto">
-              Join millions of professionals who use Fileinator to convert, compress, and edit files every day. No credit card required.
+              Everything you need to convert, compress, and optimize files in one place. Fast, secure, and browser-based.
             </p>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button size="lg" className="bg-white text-blue-700 hover:bg-slate-50 rounded-full px-8 w-full sm:w-auto h-14 text-base font-bold shadow-lg">
-                Get Started Free
-                <ArrowRight className="w-5 h-5 ml-2" />
+              <Button size="lg" className="bg-white text-blue-700 hover:bg-slate-50 rounded-full px-8 w-full sm:w-auto h-14 text-base font-bold shadow-lg" asChild>
+                <Link href="/tools">
+                  Get Started Free
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </Link>
               </Button>
-              <Button size="lg" variant="outline" className="bg-transparent text-white border-blue-400 hover:bg-blue-700/50 hover:text-white hover:border-blue-300 rounded-full px-8 w-full sm:w-auto h-14 text-base font-bold">
-                View Pricing
+              <Button size="lg" variant="outline" className="bg-transparent text-white border-blue-400 hover:bg-blue-700/50 hover:text-white hover:border-blue-300 rounded-full px-8 w-full sm:w-auto h-14 text-base font-bold" asChild>
+                <Link href="/tools">
+                  Explore Tools
+                </Link>
               </Button>
             </div>
             <p className="text-sm text-blue-200 mt-6 opacity-80">
-              Free forever for basic use. Upgrade anytime.
+              Free to use • No registration required • Files are processed securely.
             </p>
           </div>
         </div>

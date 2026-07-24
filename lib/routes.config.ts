@@ -79,6 +79,7 @@ export const toolRoutes: RouteEntry[] = [
   { path: "/tools/pdf/pdf-to-image", changeFrequency: "weekly", priority: 0.9 },
   { path: "/tools/pdf/split", changeFrequency: "weekly", priority: 0.9 },
   { path: "/tools/pdf/unlock", changeFrequency: "weekly", priority: 0.9 },
+  { path: "/tools/pdf/word-to-pdf", changeFrequency: "weekly", priority: 0.9 },
 ];
 
 /* -------------------------------------------------------------------- */

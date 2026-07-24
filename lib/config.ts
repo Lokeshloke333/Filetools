@@ -1,4 +1,5 @@
 export const FILE_LIMITS = {
   IMAGE_MAX_SIZE_MB: 100,
   PDF_MAX_SIZE_MB: 100,
+  WORD_MAX_SIZE_MB: 100,
 };

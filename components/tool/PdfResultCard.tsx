@@ -8,9 +8,23 @@ interface PdfResultCardProps {
   result: PdfMergeResult;
   onDownload: () => void;
   onReset: () => void;
+  title?: string;
+  successMessage?: string;
+  sizeLabel?: string;
+  resetButtonText?: string;
 }
 
-export function PdfResultCard({ result, onDownload, onReset }: PdfResultCardProps) {
+export function PdfResultCard({
+  result,
+  onDownload,
+  onReset,
+  title = "PDF Ready",
+  successMessage = "Your PDF document is ready!",
+  sizeLabel = "PDF Size",
+  resetButtonText = "Convert Another",
+}: PdfResultCardProps) {
+  const pageText = result.totalPageCount === 1 ? "1 Page" : `${result.totalPageCount} Pages`;
+
   return (
     <div className="w-full flex flex-col gap-6">
       <div className="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm">
@@ -19,10 +33,10 @@ export function PdfResultCard({ result, onDownload, onReset }: PdfResultCardProp
         <div className="bg-blue-50 px-6 py-4 border-b border-blue-100 flex items-center justify-between">
           <div className="flex items-center gap-2 text-blue-700 font-bold">
             <Layers className="w-5 h-5" />
-            <span>Merged Successfully</span>
+            <span>{title}</span>
           </div>
           <div className="text-sm font-medium text-blue-600">
-            {result.totalPageCount} Pages
+            {pageText}
           </div>
         </div>
 
@@ -33,7 +47,7 @@ export function PdfResultCard({ result, onDownload, onReset }: PdfResultCardProp
           </div>
           
           <h3 className="text-2xl font-bold text-slate-800 mb-2">
-            Your merged PDF is ready!
+            {successMessage}
           </h3>
           
           <div className="flex items-center justify-center gap-6 mt-6">
@@ -45,7 +59,7 @@ export function PdfResultCard({ result, onDownload, onReset }: PdfResultCardProp
             <div className="w-px h-10 bg-slate-200"></div>
             
             <div className="flex flex-col items-center">
-              <span className="text-sm text-slate-500 font-medium mb-1">Merged Size</span>
+              <span className="text-sm text-slate-500 font-medium mb-1">{sizeLabel}</span>
               <span className="text-lg font-bold text-green-600">{formatFileSize(result.processedSize)}</span>
             </div>
 
@@ -76,7 +90,7 @@ export function PdfResultCard({ result, onDownload, onReset }: PdfResultCardProp
           className="sm:flex-none sm:w-auto h-14 rounded-2xl text-base font-bold bg-white"
         >
           <RefreshCw className="w-5 h-5 mr-2" />
-          Merge More PDFs
+          {resetButtonText}
         </Button>
       </div>
     </div>
