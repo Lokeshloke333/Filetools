@@ -202,11 +202,6 @@ export function Hero() {
               <div className="absolute inset-0 bg-gradient-to-r from-blue-600/0 via-blue-600/30 to-blue-600/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </Link>
           </Button>
-          <Button size="lg" variant="outline" className="rounded-full px-8 w-full sm:w-auto text-base border-2 bg-white/50 backdrop-blur-sm hover:bg-white shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300" asChild>
-            <Link href="#categories">
-              Browse Categories
-            </Link>
-          </Button>
         </motion.div>
 
         {/* Trust Badges */}

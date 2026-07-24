@@ -2,9 +2,6 @@
 
 import React from "react";
 import Link from "next/link";
-import { Globe, Users, Mail, MessageCircle, Send } from "lucide-react";
-
-import { Button } from "./ui/button";
 
 export function Footer() {
   return (
@@ -21,27 +18,11 @@ export function Footer() {
           <div className="col-span-2 lg:col-span-2">
             <Link href="/" className="flex items-center mb-6">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/logo-white.svg" alt="Fileinator Logo" className="h-8 w-auto" />
+              <img src="/logo-white.svg" alt="Fileinator Logo" className="w-[180px] h-auto" />
             </Link>
             <p className="text-sm leading-relaxed mb-6 max-w-sm">
               The ultimate online toolkit for all your file conversion, compression, and editing needs. Secure, fast, and easy to use.
             </p>
-
-            {/* Socials */}
-            <div className="flex items-center gap-4 mb-8">
-              <a href="#" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors">
-                <Globe className="w-4 h-4" />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors">
-                <Users className="w-4 h-4" />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors">
-                <MessageCircle className="w-4 h-4" />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors">
-                <Mail className="w-4 h-4" />
-              </a>
-            </div>
 
             {/* Newsletter */}
             {/* <div>

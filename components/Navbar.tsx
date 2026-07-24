@@ -37,7 +37,7 @@ export function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center flex-shrink-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo.svg" alt="Fileinator Logo" className="h-8 w-auto" />
+            <img src="/logo.svg" alt="Fileinator Logo" className="w-[180px] h-auto" />
           </Link>
           
           {/* Desktop Search Bar */}
