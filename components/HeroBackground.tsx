@@ -26,6 +26,122 @@ const THEMES = [
   { color: '6, 182, 212', label: 'SVG' },      // Cyan
 ];
 
+interface ClusterConfig {
+  id: string;
+  count: number;
+  bounds: { xMin: number; xMax: number; yMin: number; yMax: number };
+}
+
+interface DeviceConfig {
+  tier: 'desktop' | 'tablet' | 'mobile';
+  speedMultiplier: number;
+  glowRadius: number;
+  glowOpacityInner: number;
+  glowOpacityMid: number;
+  dotRadius: number;
+  lineBaseAlpha: number;
+  lineMaxDist: number;
+  lineWidth: number;
+  fontSize: string;
+  paddingX: number;
+  pillHeight: number;
+  labelOffset: number;
+  labelOpacityBg: number;
+  labelOpacityText: number;
+  clusters: ClusterConfig[];
+}
+
+function getDeviceConfig(width: number): DeviceConfig {
+  if (width < 768) {
+    // Mobile (<768px):
+    // - Particle count: 8 (47% of desktop 17)
+    // - Glow radius: 15 (50% reduction from 30)
+    // - Glow opacity: 0.3 (50% reduction from 0.6)
+    // - Dot radius: 1.75 (~30% reduction from 2.5)
+    // - Line base opacity: 0.42 (~50% reduction from 0.85)
+    // - Speed: 0.5x
+    // - Smart outward label positioning to eliminate hero text overlap
+    return {
+      tier: 'mobile',
+      speedMultiplier: 0.5,
+      glowRadius: 15,
+      glowOpacityInner: 0.3,
+      glowOpacityMid: 0.08,
+      dotRadius: 1.75,
+      lineBaseAlpha: 0.42,
+      lineMaxDist: 160,
+      lineWidth: 1.0,
+      fontSize: "600 7.5px Inter, sans-serif",
+      paddingX: 5,
+      pillHeight: 13,
+      labelOffset: 10,
+      labelOpacityBg: 0.08,
+      labelOpacityText: 0.8,
+      clusters: [
+        { id: 'TL', count: 2, bounds: { xMin: 0.02, xMax: 0.28, yMin: 0.02, yMax: 0.30 } },
+        { id: 'TR', count: 2, bounds: { xMin: 0.72, xMax: 0.98, yMin: 0.02, yMax: 0.30 } },
+        { id: 'BL', count: 2, bounds: { xMin: 0.02, xMax: 0.28, yMin: 0.70, yMax: 0.98 } },
+        { id: 'BR', count: 2, bounds: { xMin: 0.72, xMax: 0.98, yMin: 0.70, yMax: 0.98 } },
+      ],
+    };
+  } else if (width <= 1024) {
+    // Tablet (768px-1024px):
+    // - Particle count: 12 (~70% of desktop 17)
+    // - Glow opacity: 0.48 (20% reduction from 0.6)
+    // - Glow radius: 24 (20% reduction from 30)
+    // - Line base opacity: 0.6 (~30% reduction from 0.85)
+    // - Speed: 0.75x
+    return {
+      tier: 'tablet',
+      speedMultiplier: 0.75,
+      glowRadius: 24,
+      glowOpacityInner: 0.48,
+      glowOpacityMid: 0.16,
+      dotRadius: 2.1,
+      lineBaseAlpha: 0.6,
+      lineMaxDist: 220,
+      lineWidth: 1.2,
+      fontSize: "600 8.5px Inter, sans-serif",
+      paddingX: 7,
+      pillHeight: 15,
+      labelOffset: 12,
+      labelOpacityBg: 0.1,
+      labelOpacityText: 0.85,
+      clusters: [
+        { id: 'TL', count: 3, bounds: { xMin: 0.02, xMax: 0.35, yMin: 0.04, yMax: 0.40 } },
+        { id: 'TR', count: 3, bounds: { xMin: 0.65, xMax: 0.98, yMin: 0.04, yMax: 0.40 } },
+        { id: 'BL', count: 2, bounds: { xMin: 0.02, xMax: 0.35, yMin: 0.60, yMax: 0.96 } },
+        { id: 'BR', count: 4, bounds: { xMin: 0.65, xMax: 0.98, yMin: 0.60, yMax: 0.96 } },
+      ],
+    };
+  } else {
+    // Desktop (>1024px) - Unchanged!
+    return {
+      tier: 'desktop',
+      speedMultiplier: 1.0,
+      glowRadius: 30,
+      glowOpacityInner: 0.6,
+      glowOpacityMid: 0.2,
+      dotRadius: 2.5,
+      lineBaseAlpha: 0.85,
+      lineMaxDist: 280,
+      lineWidth: 1.5,
+      fontSize: "600 9px Inter, sans-serif",
+      paddingX: 8,
+      pillHeight: 16,
+      labelOffset: 12,
+      labelOpacityBg: 0.1,
+      labelOpacityText: 0.9,
+      clusters: [
+        { id: 'TL', count: 5, bounds: { xMin: 0.02, xMax: 0.35, yMin: 0.05, yMax: 0.45 } },
+        { id: 'TR', count: 4, bounds: { xMin: 0.65, xMax: 0.98, yMin: 0.05, yMax: 0.45 } },
+        { id: 'BL', count: 3, bounds: { xMin: 0.02, xMax: 0.35, yMin: 0.55, yMax: 0.95 } },
+        { id: 'BR', count: 5, bounds: { xMin: 0.65, xMax: 0.98, yMin: 0.55, yMax: 0.95 } },
+      ],
+    };
+  }
+}
+
 export function HeroBackground({ smoothMouseX, smoothMouseY }: HeroBackgroundProps) {
   const shouldReduceMotion = useReducedMotion();
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -60,54 +176,34 @@ export function HeroBackground({ smoothMouseX, smoothMouseY }: HeroBackgroundPro
     let animationFrameId: number;
     let width = window.innerWidth;
     let height = window.innerHeight;
-
-    const resizeCanvas = () => {
-      if (!canvas.parentElement) return;
-      width = canvas.parentElement.offsetWidth;
-      height = canvas.parentElement.offsetHeight;
-      
-      const dpr = window.devicePixelRatio || 1;
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      ctx.scale(dpr, dpr);
-    };
-
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    const CLUSTERS = [
-      { id: 'TL', count: 5, bounds: { xMin: 0.02, xMax: 0.35, yMin: 0.05, yMax: 0.45 } },
-      { id: 'TR', count: 4, bounds: { xMin: 0.65, xMax: 0.98, yMin: 0.05, yMax: 0.45 } },
-      { id: 'BL', count: 3, bounds: { xMin: 0.02, xMax: 0.35, yMin: 0.55, yMax: 0.95 } },
-      { id: 'BR', count: 5, bounds: { xMin: 0.65, xMax: 0.98, yMin: 0.55, yMax: 0.95 } },
-    ];
+    let currentConfig = getDeviceConfig(width);
 
     class NetworkNode {
       x: number; y: number;
       vx: number; vy: number;
       theme: typeof THEMES[0];
       label: string;
-      cluster: typeof CLUSTERS[0];
+      cluster: ClusterConfig;
 
-      constructor(cluster: typeof CLUSTERS[0], index: number) {
+      constructor(cluster: ClusterConfig, index: number, w: number, h: number, speedMultiplier: number) {
         this.cluster = cluster;
         
         const b = this.cluster.bounds;
-        const minX = width * b.xMin;
-        const maxX = width * b.xMax;
-        const minY = height * b.yMin;
-        const maxY = height * b.yMax;
+        const minX = w * b.xMin;
+        const maxX = w * b.xMax;
+        const minY = h * b.yMin;
+        const maxY = h * b.yMax;
 
         this.x = minX + Math.random() * (maxX - minX);
         this.y = minY + Math.random() * (maxY - minY);
         
-        this.vx = (Math.random() - 0.5) * 0.15;
-        this.vy = (Math.random() - 0.5) * 0.15;
+        this.vx = (Math.random() - 0.5) * 0.15 * speedMultiplier;
+        this.vy = (Math.random() - 0.5) * 0.15 * speedMultiplier;
         this.theme = THEMES[index % THEMES.length];
         this.label = FILE_TYPES[Math.floor(Math.random() * FILE_TYPES.length)];
       }
 
-      update(mx: number, my: number) {
+      update(mx: number, my: number, w: number, h: number, speedMultiplier: number) {
         this.x += this.vx;
         this.y += this.vy;
         
@@ -123,10 +219,10 @@ export function HeroBackground({ smoothMouseX, smoothMouseY }: HeroBackgroundPro
         }
         
         const b = this.cluster.bounds;
-        const minX = width * b.xMin;
-        const maxX = width * b.xMax;
-        const minY = height * b.yMin;
-        const maxY = height * b.yMax;
+        const minX = w * b.xMin;
+        const maxX = w * b.xMax;
+        const minY = h * b.yMin;
+        const maxY = h * b.yMax;
 
         // Soft bounce off cluster boundaries to keep them contained
         if (this.x < minX) { this.x = minX; this.vx *= -1; }
@@ -138,62 +234,101 @@ export function HeroBackground({ smoothMouseX, smoothMouseY }: HeroBackgroundPro
         this.vx *= 0.999;
         this.vy *= 0.999;
         
-        // Random idle movement (slight wandering)
+        // Random idle movement (slight wandering scaled by speed)
         if (Math.random() < 0.02) {
-            this.vx += (Math.random() - 0.5) * 0.05;
-            this.vy += (Math.random() - 0.5) * 0.05;
+            this.vx += (Math.random() - 0.5) * 0.05 * speedMultiplier;
+            this.vy += (Math.random() - 0.5) * 0.05 * speedMultiplier;
         }
       }
 
-      draw(ctx: CanvasRenderingContext2D) {
+      draw(ctx: CanvasRenderingContext2D, config: DeviceConfig, w: number, h: number) {
         // Draw Glowing Dot
-        const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, 30);
-        gradient.addColorStop(0, `rgba(${this.theme.color}, 0.6)`);
-        gradient.addColorStop(0.3, `rgba(${this.theme.color}, 0.2)`);
+        const glowR = config.glowRadius;
+        const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, glowR);
+        gradient.addColorStop(0, `rgba(${this.theme.color}, ${config.glowOpacityInner})`);
+        gradient.addColorStop(0.3, `rgba(${this.theme.color}, ${config.glowOpacityMid})`);
         gradient.addColorStop(1, `rgba(${this.theme.color}, 0)`);
         
         ctx.fillStyle = gradient;
         ctx.beginPath();
-        ctx.arc(this.x, this.y, 30, 0, Math.PI * 2);
+        ctx.arc(this.x, this.y, glowR, 0, Math.PI * 2);
         ctx.fill();
 
         // Solid center point
         ctx.fillStyle = `rgba(${this.theme.color}, 1)`;
         ctx.beginPath();
-        ctx.arc(this.x, this.y, 2.5, 0, Math.PI * 2);
+        ctx.arc(this.x, this.y, config.dotRadius, 0, Math.PI * 2);
         ctx.fill();
 
         // Draw Pill Label
-        const labelX = this.x + 12;
-        const labelY = this.y - 12;
-        
-        ctx.font = "600 9px Inter, sans-serif";
+        ctx.font = config.fontSize;
         const textWidth = ctx.measureText(this.label).width;
-        const paddingX = 8;
-        const paddingY = 4;
+        const paddingX = config.paddingX;
+        const pillHeight = config.pillHeight;
         
+        // Smart directional label offset based on node position to project away from center and avoid overlapping
+        let labelX: number;
+        let labelY: number;
+
+        if (config.tier === 'mobile') {
+          labelX = this.x < w / 2 
+            ? this.x + config.labelOffset 
+            : this.x - (textWidth + paddingX * 2 + config.labelOffset);
+          labelY = this.y < h / 2 
+            ? this.y + config.labelOffset 
+            : this.y - (pillHeight + config.labelOffset);
+        } else {
+          labelX = this.x + config.labelOffset;
+          labelY = this.y - config.labelOffset;
+        }
+
         // Pill background
-        ctx.fillStyle = `rgba(${this.theme.color}, 0.1)`;
+        ctx.fillStyle = `rgba(${this.theme.color}, ${config.labelOpacityBg})`;
         ctx.beginPath();
-        ctx.roundRect(labelX, labelY - 8, textWidth + paddingX * 2, 16, 8);
+        ctx.roundRect(labelX, labelY - pillHeight / 2, textWidth + paddingX * 2, pillHeight, pillHeight / 2);
         ctx.fill();
         
         // Pill text
-        ctx.fillStyle = `rgba(${this.theme.color}, 0.9)`;
+        ctx.fillStyle = `rgba(${this.theme.color}, ${config.labelOpacityText})`;
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.fillText(this.label, labelX + textWidth / 2 + paddingX, labelY);
       }
     }
 
-    // Initialize clusters of colorful nodes
-    const nodes: NetworkNode[] = [];
-    let nodeIndex = 0;
-    CLUSTERS.forEach(cluster => {
-      for (let i = 0; i < cluster.count; i++) {
-        nodes.push(new NetworkNode(cluster, nodeIndex++));
+    let nodes: NetworkNode[] = [];
+
+    const initNodes = () => {
+      nodes = [];
+      let nodeIndex = 0;
+      currentConfig.clusters.forEach(cluster => {
+        for (let i = 0; i < cluster.count; i++) {
+          nodes.push(new NetworkNode(cluster, nodeIndex++, width, height, currentConfig.speedMultiplier));
+        }
+      });
+    };
+
+    const resizeCanvas = () => {
+      if (!canvas.parentElement) return;
+      width = canvas.parentElement.offsetWidth;
+      height = canvas.parentElement.offsetHeight;
+      
+      const newConfig = getDeviceConfig(width);
+      const tierChanged = newConfig.tier !== currentConfig.tier;
+      currentConfig = newConfig;
+
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      ctx.scale(dpr, dpr);
+
+      if (tierChanged || nodes.length === 0) {
+        initNodes();
       }
-    });
+    };
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
 
     const render = () => {
       ctx.clearRect(0, 0, width, height);
@@ -213,27 +348,21 @@ export function HeroBackground({ smoothMouseX, smoothMouseY }: HeroBackgroundPro
           const dy = nodeA.y - nodeB.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
 
-          // Reduced distance so they only connect tightly within their clusters
-          if (dist < 280) {
-            // Increased opacity base from 0.5 to 0.85 for better visibility
-            const alpha = 0.85 * (1 - dist / 280);
+          if (dist < currentConfig.lineMaxDist) {
+            const alpha = currentConfig.lineBaseAlpha * (1 - dist / currentConfig.lineMaxDist);
             
-            // Linear gradient stroke connecting the two node colors
             const grad = ctx.createLinearGradient(nodeA.x, nodeA.y, nodeB.x, nodeB.y);
             grad.addColorStop(0, `rgba(${nodeA.theme.color}, ${alpha})`);
             grad.addColorStop(1, `rgba(${nodeB.theme.color}, ${alpha})`);
             
             ctx.strokeStyle = grad;
-            ctx.lineWidth = 1.5; // Slightly thicker line
+            ctx.lineWidth = currentConfig.lineWidth;
             
             ctx.beginPath();
             ctx.moveTo(nodeA.x, nodeA.y);
             
-            // Draw a slight curve instead of a rigid straight line
             const midX = (nodeA.x + nodeB.x) / 2;
             const midY = (nodeA.y + nodeB.y) / 2;
-            
-            // Generate a consistent offset for the curve based on nodes index
             const offset = dist * 0.15 * (i % 2 === 0 ? 1 : -1);
             
             ctx.quadraticCurveTo(midX + offset, midY - offset, nodeB.x, nodeB.y);
@@ -247,8 +376,8 @@ export function HeroBackground({ smoothMouseX, smoothMouseY }: HeroBackgroundPro
 
       // Draw Nodes on top
       nodes.forEach(node => {
-        node.update(mx, my);
-        node.draw(ctx);
+        node.update(mx, my, width, height, currentConfig.speedMultiplier);
+        node.draw(ctx, currentConfig, width, height);
       });
 
       animationFrameId = requestAnimationFrame(render);
@@ -260,7 +389,7 @@ export function HeroBackground({ smoothMouseX, smoothMouseY }: HeroBackgroundPro
       window.removeEventListener('resize', resizeCanvas);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [shouldReduceMotion]);
+  }, [shouldReduceMotion, smoothMouseX, smoothMouseY]);
 
   return (
     <div className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden bg-white">
@@ -279,11 +408,11 @@ export function HeroBackground({ smoothMouseX, smoothMouseY }: HeroBackgroundPro
       {/* Layer 3: Canvas Engine (Colorful Network Nodes & Connections) */}
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
 
-      {/* Layer 4: Floating File Icons */}
+      {/* Layer 4: Floating File Icons (Hidden on small mobile screens to keep view clean) */}
       {floatingIcons.map((item, idx) => (
         <motion.div
           key={idx}
-          className="absolute text-[#CBD5E1] opacity-[0.03] blur-[1px]"
+          className="hidden sm:block absolute text-[#CBD5E1] opacity-[0.03] blur-[1px]"
           style={{ 
             top: item.top, 
             left: item.left, 

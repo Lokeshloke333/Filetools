@@ -28,7 +28,7 @@ export function GlobalSearch({
   const [query, setQuery] = useState(initialValue);
   const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
-  
+
   const router = useRouter();
   const searchRef = useRef<HTMLDivElement>(null);
 
@@ -40,15 +40,15 @@ export function GlobalSearch({
   // Filter tools based on query
   const searchResults = useMemo(() => {
     if (query.trim().length < 2) return [];
-    
+
     const lowerQuery = query.toLowerCase();
-    
+
     return TOOLS.filter((tool) => {
       const matchTitle = tool.title.toLowerCase().includes(lowerQuery);
       const matchDesc = tool.description.toLowerCase().includes(lowerQuery);
       const matchCat = tool.category.toLowerCase().includes(lowerQuery);
       const matchKeywords = tool.keywords.some(k => k.toLowerCase().includes(lowerQuery));
-      
+
       return matchTitle || matchDesc || matchCat || matchKeywords;
     });
   }, [query]);
@@ -169,17 +169,17 @@ export function GlobalSearch({
           onKeyDown={handleKeyDown}
           className={cn(
             "block w-full text-slate-900 border border-slate-200 outline-none transition-all placeholder:text-slate-400",
-            variant === "hero" 
-              ? "p-4 pl-12 md:p-5 md:pl-12 2xl:p-6 2xl:pl-14 text-sm md:text-base 2xl:text-lg rounded-2xl bg-white/95 focus:bg-white hover:border-blue-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/15 backdrop-blur-sm" 
+            variant === "hero"
+              ? "p-4 pl-12 md:p-5 md:pl-12 2xl:p-6 2xl:pl-14 text-sm md:text-base 2xl:text-lg rounded-2xl bg-white/95 focus:bg-white hover:border-blue-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/15 backdrop-blur-sm"
               : "py-2.5 pl-10 pr-4 text-sm rounded-full focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500",
             variant === "navbar" ? "bg-slate-50 shadow-inner" : "",
             variant === "filterBar" ? "bg-white" : ""
           )}
-          placeholder={variant === "hero" ? "Search for tools (e.g., 'Compress PDF')..." : (variant === "navbar" ? "Search 100+ tools..." : "Search tools...")}
+          placeholder={variant === "hero" ? "Search for tools..." : (variant === "navbar" ? "Search 100+ tools..." : "Search tools...")}
           aria-label="Search tools"
         />
         {variant === "hero" && (
-          <button 
+          <button
             onClick={handleSearchSubmit}
             className="absolute inset-y-2 right-2 px-4 md:px-6 2xl:px-8 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-xl transition-colors"
           >
@@ -212,7 +212,7 @@ export function GlobalSearch({
                   const isActive = index === activeIndex;
                   const isComingSoon = tool.status === "coming-soon";
                   const Icon = tool.icon;
-                  
+
                   return (
                     <li key={tool.id}>
                       <Link
@@ -258,7 +258,7 @@ export function GlobalSearch({
               </ul>
             )}
           </div>
-          
+
           {/* Footer keyboard hints */}
           <div className="hidden sm:flex px-4 py-2 bg-slate-50 border-t border-slate-100 items-center justify-between text-[10px] text-slate-400 font-medium">
             <div className="flex items-center gap-3">

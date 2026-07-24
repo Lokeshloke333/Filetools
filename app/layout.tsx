@@ -5,6 +5,7 @@ import { Toaster } from "sonner";
 import { siteConfig } from "@/lib/site.config";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { getOrganizationSchema, getWebSiteSchema } from "@/lib/seo/schema";
+import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -113,6 +114,7 @@ export default function RootLayout({
       <body className={`${inter.className} antialiased`}>
         {children}
         <Toaster position="bottom-right" />
+        <GoogleAnalytics />
       </body>
     </html>
   );
