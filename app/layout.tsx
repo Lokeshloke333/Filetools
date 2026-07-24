@@ -5,7 +5,7 @@ import { Toaster } from "sonner";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "FileTools - All Your File Tools In One Place",
+  title: "Fileinator - All Your File Tools In One Place",
   description: "Discover the world's most comprehensive toolkit for all your file conversions, editing, and optimization needs.",
 };
 

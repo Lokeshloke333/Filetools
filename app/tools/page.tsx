@@ -8,7 +8,7 @@ import Link from "next/link";
 import { ChevronRight, LayoutGrid } from "lucide-react";
 
 export const metadata = {
-  title: "Browse All Tools | FileTools",
+  title: "Browse All Tools | Fileinator",
   description: "Discover powerful online tools to compress, convert, edit and optimize your files.",
 };
 

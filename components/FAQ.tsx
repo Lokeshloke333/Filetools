@@ -11,7 +11,7 @@ import {
 export function FAQ({ limit }: { limit?: number }) {
   const faqs = [
     {
-      question: "Is FileTools really free to use?",
+      question: "Is Fileinator really free to use?",
       answer: "Yes! Our basic tools are completely free to use with generous daily limits. For heavy users and professionals, we offer premium plans with unlimited access and advanced features.",
     },
     {
@@ -24,10 +24,10 @@ export function FAQ({ limit }: { limit?: number }) {
     },
     {
       question: "Do I need to install any software?",
-      answer: "No. FileTools is 100% web-based. You don't need to install anything on your device. It works perfectly on Windows, Mac, Linux, iOS, and Android browsers.",
+      answer: "No. Fileinator is 100% web-based. You don't need to install anything on your device. It works perfectly on Windows, Mac, Linux, iOS, and Android browsers.",
     },
     {
-      question: "Can I use FileTools on my mobile phone?",
+      question: "Can I use Fileinator on my mobile phone?",
       answer: "Yes! Our website is fully responsive and optimized for mobile devices, allowing you to convert and edit files on the go.",
     },
   ];

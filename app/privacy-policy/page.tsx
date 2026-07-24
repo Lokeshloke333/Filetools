@@ -3,8 +3,8 @@ import { LegalLayout } from "@/components/legal/LegalLayout";
 import { ShieldCheck } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | FileTools",
-  description: "Learn how FileTools protects your privacy while processing your files securely.",
+  title: "Privacy Policy | Fileinator",
+  description: "Learn how Fileinator protects your privacy while processing your files securely.",
 };
 
 const sections = [
@@ -32,7 +32,7 @@ export default function PrivacyPolicyPage() {
     >
       <h2 id="introduction">Introduction</h2>
       <p>
-        Welcome to FileTools. We are committed to protecting your personal information and your right to privacy. 
+        Welcome to Fileinator. We are committed to protecting your personal information and your right to privacy. 
         When you visit our website and use our services, you trust us with your personal information. 
         We take your privacy very seriously.
       </p>
@@ -100,7 +100,7 @@ export default function PrivacyPolicyPage() {
 
       <h2 id="contact">Contact Us</h2>
       <p>
-        If you have questions or comments about this notice, you may email us at privacy@filetools.example.com.
+        If you have questions or comments about this notice, you may email us at privacy@fileinator.example.com.
       </p>
     </LegalLayout>
   );

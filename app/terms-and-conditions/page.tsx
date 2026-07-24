@@ -3,8 +3,8 @@ import { LegalLayout } from "@/components/legal/LegalLayout";
 import { FileText } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Terms & Conditions | FileTools",
-  description: "Read the terms governing your use of FileTools online utilities.",
+  title: "Terms & Conditions | Fileinator",
+  description: "Read the terms governing your use of Fileinator online utilities.",
 };
 
 const sections = [
@@ -32,21 +32,21 @@ export default function TermsAndConditionsPage() {
     >
       <h2 id="acceptance">Acceptance of Terms</h2>
       <p>
-        By accessing and using FileTools, you accept and agree to be bound by the terms and provision of this agreement. 
-        In addition, when using FileTools's particular services, you shall be subject to any posted guidelines or rules 
+        By accessing and using Fileinator, you accept and agree to be bound by the terms and provision of this agreement. 
+        In addition, when using Fileinator's particular services, you shall be subject to any posted guidelines or rules 
         applicable to such services.
       </p>
 
       <h2 id="use-of-services">Use of Services</h2>
       <p>
-        FileTools provides a collection of online tools for modifying and converting various file types. 
-        You understand and agree that the Service is provided "AS-IS" and that FileTools assumes no responsibility 
+        Fileinator provides a collection of online tools for modifying and converting various file types. 
+        You understand and agree that the Service is provided "AS-IS" and that Fileinator assumes no responsibility 
         for the timeliness, deletion, mis-delivery or failure to store any user communications or personalization settings.
       </p>
 
       <h2 id="permitted-usage">Permitted Usage</h2>
       <p>
-        You are permitted to use FileTools for your personal and commercial needs, provided you do so legally. 
+        You are permitted to use Fileinator for your personal and commercial needs, provided you do so legally. 
         <strong> Users should only upload files they own or have explicit permission to process.</strong> 
         We do not claim any ownership rights over the files you upload.
       </p>
@@ -65,7 +65,7 @@ export default function TermsAndConditionsPage() {
       <h2 id="intellectual-property">Intellectual Property</h2>
       <p>
         The Service and its original content, features, and functionality are and will remain the exclusive property of 
-        FileTools and its licensors. The Service is protected by copyright, trademark, and other laws of both the 
+        Fileinator and its licensors. The Service is protected by copyright, trademark, and other laws of both the 
         United States and foreign countries.
       </p>
 
@@ -78,7 +78,7 @@ export default function TermsAndConditionsPage() {
 
       <h2 id="limitation-of-liability">Limitation of Liability</h2>
       <p>
-        In no event shall FileTools, nor its directors, employees, partners, agents, suppliers, or affiliates, 
+        In no event shall Fileinator, nor its directors, employees, partners, agents, suppliers, or affiliates, 
         be liable for any indirect, incidental, special, consequential or punitive damages, including without limitation, 
         loss of profits, data, use, goodwill, or other intangible losses, resulting from your access to or use of or 
         inability to access or use the Service.
@@ -106,7 +106,7 @@ export default function TermsAndConditionsPage() {
 
       <h2 id="contact">Contact Information</h2>
       <p>
-        If you have any questions about these Terms, please contact us at legal@filetools.example.com.
+        If you have any questions about these Terms, please contact us at legal@fileinator.example.com.
       </p>
     </LegalLayout>
   );

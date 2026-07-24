@@ -49,7 +49,7 @@ export function Features() {
         
         <div className="text-center max-w-2xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 tracking-tight">
-            Why Choose FileTools?
+            Why Choose Fileinator?
           </h2>
           <p className="text-slate-600 text-lg">
             We've built the most reliable, secure, and fastest file processing platform on the web.

@@ -35,11 +35,9 @@ export function Navbar() {
         {/* Left Section: Logo & Search */}
         <div className="flex items-center gap-6 flex-1 md:flex-none">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 flex-shrink-0">
-            <div className="bg-blue-600 p-1.5 rounded-lg flex items-center justify-center">
-              <Layers className="text-white w-5 h-5" />
-            </div>
-            <span className="font-bold text-xl tracking-tight text-slate-900">FileTools</span>
+          <Link href="/" className="flex items-center flex-shrink-0">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo.svg" alt="Fileinator Logo" className="h-8 w-auto" />
           </Link>
           
           {/* Desktop Search Bar */}

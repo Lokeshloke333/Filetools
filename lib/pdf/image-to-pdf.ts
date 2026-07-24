@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { PDFDocument, rgb } from "pdf-lib";
 import sharp from "sharp";
 

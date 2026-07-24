@@ -19,11 +19,9 @@ export function Footer() {
 
           {/* Column 1: Brand & Newsletter */}
           <div className="col-span-2 lg:col-span-2">
-            <Link href="/" className="flex items-center gap-2 mb-6">
-              <div className="bg-blue-600 p-1.5 rounded-lg flex items-center justify-center">
-                <Layers className="text-white w-5 h-5" />
-              </div>
-              <span className="font-bold text-xl tracking-tight text-white">FileTools</span>
+            <Link href="/" className="flex items-center mb-6">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logo-white.svg" alt="Fileinator Logo" className="h-8 w-auto" />
             </Link>
             <p className="text-sm leading-relaxed mb-6 max-w-sm">
               The ultimate online toolkit for all your file conversion, compression, and editing needs. Secure, fast, and easy to use.
@@ -94,7 +92,7 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
-          <p>© {new Date().getFullYear()} FileTools Inc. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Fileinator Inc. All rights reserved.</p>
           <div className="flex gap-4">
             <Link href="#" className="hover:text-white transition-colors">English (US)</Link>
             <Link href="#" className="hover:text-white transition-colors">System Status</Link>

@@ -18,7 +18,7 @@ export function CTA() {
               Ready to simplify your workflow?
             </h2>
             <p className="text-blue-100 text-lg md:text-xl mb-10 max-w-2xl mx-auto">
-              Join millions of professionals who use FileTools to convert, compress, and edit files every day. No credit card required.
+              Join millions of professionals who use Fileinator to convert, compress, and edit files every day. No credit card required.
             </p>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

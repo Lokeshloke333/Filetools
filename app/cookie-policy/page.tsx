@@ -3,8 +3,8 @@ import { LegalLayout } from "@/components/legal/LegalLayout";
 import { Cookie } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Cookie Policy | FileTools",
-  description: "Learn how FileTools uses cookies to improve your browsing experience.",
+  title: "Cookie Policy | Fileinator",
+  description: "Learn how Fileinator uses cookies to improve your browsing experience.",
 };
 
 const sections = [
@@ -37,7 +37,7 @@ export default function CookiePolicyPage() {
 
       <h2 id="types-of-cookies">Types of Cookies</h2>
       <p>
-        Cookies set by the website owner (in this case, FileTools) are called "first-party cookies". 
+        Cookies set by the website owner (in this case, Fileinator) are called "first-party cookies". 
         Cookies set by parties other than the website owner are called "third-party cookies". 
         We use both first-party and third-party cookies for several reasons.
       </p>
@@ -86,7 +86,7 @@ export default function CookiePolicyPage() {
 
       <h2 id="contact">Contact Information</h2>
       <p>
-        If you have any questions about our use of cookies or other technologies, please email us at privacy@filetools.example.com.
+        If you have any questions about our use of cookies or other technologies, please email us at privacy@fileinator.example.com.
       </p>
     </LegalLayout>
   );

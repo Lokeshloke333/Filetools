@@ -24,8 +24,8 @@ export async function processCrop(params: ProcessImageParams<CropSettings>): Pro
   const originalHeight = metadata.height || 0;
 
   // Math.round to ensure integers
-  let left = Math.max(0, Math.round(settings.x));
-  let top = Math.max(0, Math.round(settings.y));
+  const left = Math.max(0, Math.round(settings.x));
+  const top = Math.max(0, Math.round(settings.y));
   let cropWidth = Math.max(1, Math.round(settings.width));
   let cropHeight = Math.max(1, Math.round(settings.height));
 

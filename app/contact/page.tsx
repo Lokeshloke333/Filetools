@@ -119,7 +119,7 @@ export default function ContactPage() {
                 <div>
                   <h3 className="font-semibold text-slate-900 mb-1">Email Support</h3>
                   <p className="text-sm text-slate-500 mb-2">Reach out to our support team directly via email.</p>
-                  <a href="mailto:support@filetools.example" className="text-sm font-medium text-blue-600 hover:underline">support@filetools.example</a>
+                  <a href="mailto:support@fileinator.example" className="text-sm font-medium text-blue-600 hover:underline">support@fileinator.example</a>
                 </div>
               </div>
 

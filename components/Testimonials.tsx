@@ -9,7 +9,7 @@ export function Testimonials() {
       name: "Sarah Jenkins",
       role: "Marketing Director",
       image: "https://i.pravatar.cc/150?img=47",
-      quote: "FileTools has completely transformed our workflow. What used to take hours of converting and formatting is now done in literally seconds. The UI is incredibly intuitive.",
+      quote: "Fileinator has completely transformed our workflow. What used to take hours of converting and formatting is now done in literally seconds. The UI is incredibly intuitive.",
       stars: 5,
     },
     {
@@ -36,7 +36,7 @@ export function Testimonials() {
             What Our Users Say
           </h2>
           <p className="text-slate-600 text-lg">
-            Don't just take our word for it. Here's what professionals think about FileTools.
+            Don't just take our word for it. Here's what professionals think about Fileinator.
           </p>
         </div>
 

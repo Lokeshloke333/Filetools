@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useCallback } from "react";
 import { toast } from "sonner";
 import { PdfFileInfo, PdfMergeResult } from "@/lib/pdf/types";
@@ -14,7 +15,7 @@ export function usePdfMerge() {
   const handleFilesSelect = useCallback((newFiles: File[]) => {
     setFiles((currentFiles) => {
       const newFileInfos: PdfFileInfo[] = [];
-      let currentList = [...currentFiles];
+      const currentList = [...currentFiles];
 
       for (const f of newFiles) {
         const { valid, error } = validatePdf(f, currentList);
