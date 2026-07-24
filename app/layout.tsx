@@ -7,6 +7,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { getOrganizationSchema, getWebSiteSchema } from "@/lib/seo/schema";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import { MicrosoftClarity } from "@/components/analytics/MicrosoftClarity";
+import { Analytics } from "@vercel/analytics/next";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -117,6 +118,7 @@ export default function RootLayout({
         <Toaster position="bottom-right" />
         <GoogleAnalytics />
         <MicrosoftClarity />
+        <Analytics />
       </body>
     </html>
   );
