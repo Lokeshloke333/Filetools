@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { Layers, Globe, Users, Mail, MessageCircle, Send } from "lucide-react";
+import { Globe, Users, Mail, MessageCircle, Send } from "lucide-react";
 
 import { Button } from "./ui/button";
 

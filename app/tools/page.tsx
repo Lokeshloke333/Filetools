@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import React from "react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -7,14 +8,47 @@ import { ToolsDirectory } from "@/components/tools/ToolsDirectory";
 import Link from "next/link";
 import { ChevronRight, LayoutGrid } from "lucide-react";
 
-export const metadata = {
-  title: "Browse All Tools | Fileinator",
-  description: "Discover powerful online tools to compress, convert, edit and optimize your files.",
+export const metadata: Metadata = {
+  title: "Browse All Online File Tools",
+  description: "Explore all free online image and PDF processing tools on Fileinator. Compress, convert, edit, and optimize your files fast and securely in your browser.",
+  keywords: [
+    "all file tools",
+    "online file utilities",
+    "image tools directory",
+    "pdf tools directory",
+    "free online tools"
+  ],
+  alternates: {
+    canonical: "/tools",
+  },
+  openGraph: {
+    title: "Browse All Online File Tools | Fileinator",
+    description: "Explore all free online image and PDF processing tools on Fileinator. Compress, convert, edit, and optimize your files fast in your browser.",
+    url: "/tools",
+    siteName: "Fileinator",
+    type: "website",
+    images: ["/og-image.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Browse All Online File Tools | Fileinator",
+    description: "Explore all free online image and PDF processing tools on Fileinator. Compress, convert, edit, and optimize your files fast in your browser.",
+    images: ["/og-image.png"],
+  },
 };
 
+import { JsonLd } from "@/components/seo/JsonLd";
+import { getBreadcrumbSchema } from "@/lib/seo/schema";
+
 export default function ToolsPage() {
+  const breadcrumbs = getBreadcrumbSchema([
+    { name: "Home", item: "/" },
+    { name: "Browse Tools", item: "/tools" },
+  ]);
+
   return (
     <main className="min-h-screen flex flex-col bg-slate-50">
+      <JsonLd data={breadcrumbs} />
       <Navbar />
       
       {/* Page Header / Hero Section */}

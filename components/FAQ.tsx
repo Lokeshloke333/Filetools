@@ -1,6 +1,8 @@
 "use client";
 
 import React from "react";
+import { JsonLd } from "./seo/JsonLd";
+import { getFaqSchema } from "@/lib/seo/schema";
 import {
   Accordion,
   AccordionContent,
@@ -33,9 +35,11 @@ export function FAQ({ limit }: { limit?: number }) {
   ];
 
   const displayedFaqs = limit ? faqs.slice(0, limit) : faqs;
+  const faqSchema = getFaqSchema(displayedFaqs);
 
   return (
     <section className="py-20 bg-white">
+      <JsonLd data={faqSchema} />
       <div className="max-w-7xl mx-auto w-full px-4 md:px-6">
         <div className="text-center max-w-2xl mx-auto mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 tracking-tight">

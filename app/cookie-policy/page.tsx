@@ -3,8 +3,32 @@ import { LegalLayout } from "@/components/legal/LegalLayout";
 import { Cookie } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Cookie Policy | Fileinator",
-  description: "Learn how Fileinator uses cookies to improve your browsing experience.",
+  title: "Cookie Policy",
+  description: "Learn how Fileinator uses cookies and local storage to deliver secure, browser-based file conversion, compression, and editing tools efficiently.",
+  keywords: [
+    "cookie policy",
+    "cookies",
+    "fileinator cookies",
+    "browser storage",
+    "tracking policy"
+  ],
+  alternates: {
+    canonical: "/cookie-policy",
+  },
+  openGraph: {
+    title: "Cookie Policy | Fileinator",
+    description: "Learn how Fileinator uses cookies and local storage to deliver secure, browser-based file conversion, compression, and editing tools efficiently.",
+    url: "/cookie-policy",
+    siteName: "Fileinator",
+    type: "website",
+    images: ["/og-image.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Cookie Policy | Fileinator",
+    description: "Learn how Fileinator uses cookies and local storage to deliver secure, browser-based file conversion, compression, and editing tools efficiently.",
+    images: ["/og-image.png"],
+  },
 };
 
 const sections = [
@@ -19,9 +43,19 @@ const sections = [
   { id: "contact", title: "Contact Information" },
 ];
 
+import { JsonLd } from "@/components/seo/JsonLd";
+import { getBreadcrumbSchema } from "@/lib/seo/schema";
+
 export default function CookiePolicyPage() {
+  const breadcrumbs = getBreadcrumbSchema([
+    { name: "Home", item: "/" },
+    { name: "Cookie Policy", item: "/cookie-policy" },
+  ]);
+
   return (
-    <LegalLayout
+    <>
+      <JsonLd data={breadcrumbs} />
+      <LegalLayout
       title="Cookie Policy"
       description="This policy explains how we use cookies and similar technologies to recognize you when you visit our website."
       icon={<Cookie className="w-8 h-8" />}
@@ -89,5 +123,6 @@ export default function CookiePolicyPage() {
         If you have any questions about our use of cookies or other technologies, please email us at privacy@fileinator.example.com.
       </p>
     </LegalLayout>
+    </>
   );
 }

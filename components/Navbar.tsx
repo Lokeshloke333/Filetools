@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, Layers, Search } from "lucide-react";
+import { Menu, X, Search } from "lucide-react";
 import { Button } from "./ui/button";
 import { MegaMenu } from "./navbar/MegaMenu";
 import { MobileMenu } from "./navbar/MobileMenu";

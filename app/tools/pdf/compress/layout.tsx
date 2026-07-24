@@ -1,20 +1,61 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { getBreadcrumbSchema, getSoftwareAppSchema } from "@/lib/seo/schema";
 
 export const metadata: Metadata = {
-  title: "Compress PDF - Reduce PDF File Size Online | Fileinator",
-  description: "Compress PDF files online for free. Reduce the file size of your PDF documents quickly while maintaining the best possible quality for sharing.",
-  keywords: "compress pdf, reduce pdf size, make pdf smaller, optimize pdf, pdf tools",
-  openGraph: {
-    title: "Compress PDF - Reduce PDF File Size Online | Fileinator",
-    description: "Compress PDF files online for free. Reduce the file size of your PDF documents quickly while maintaining the best possible quality for sharing.",
-    url: "https://fileinator.com/tools/pdf/compress",
-    type: "website",
-  },
+  title: "Compress PDF Online Free",
+  description: "Compress PDF files online for free. Reduce file size of your PDF documents quickly while maintaining optimal visual quality for sharing.",
+  keywords: [
+    "compress pdf",
+    "reduce pdf size",
+    "make pdf smaller",
+    "optimize pdf",
+    "pdf compressor online",
+    "free pdf tool"
+  ],
   alternates: {
-    canonical: "https://fileinator.com/tools/pdf/compress",
+    canonical: "/tools/pdf/compress",
+  },
+  openGraph: {
+    title: "Compress PDF Online Free | Fileinator",
+    description: "Compress PDF files online for free. Reduce file size of your PDF documents quickly while maintaining optimal visual quality for sharing.",
+    url: "/tools/pdf/compress",
+    siteName: "Fileinator",
+    type: "website",
+    images: ["/og-image.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Compress PDF Online Free | Fileinator",
+    description: "Compress PDF files online for free. Reduce file size of your PDF documents quickly while maintaining optimal visual quality for sharing.",
+    images: ["/og-image.png"],
   },
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+  const breadcrumbs = getBreadcrumbSchema([
+    { name: "Home", item: "/" },
+    { name: "PDF Tools", item: "/tools" },
+    { name: "Compress PDF", item: "/tools/pdf/compress" },
+  ]);
+
+  const softwareApp = getSoftwareAppSchema({
+    name: "Compress PDF",
+    description: "Compress PDF files online for free while maintaining visual clarity.",
+    url: "/tools/pdf/compress",
+    featureList: [
+      "Reduce PDF File Size",
+      "Maintain Visual Quality",
+      "Fast & Secure",
+      "No Upload Storage",
+      "Browser Based Processing"
+    ],
+  });
+
+  return (
+    <>
+      <JsonLd data={[breadcrumbs, softwareApp]} />
+      {children}
+    </>
+  );
 }

@@ -3,8 +3,32 @@ import { LegalLayout } from "@/components/legal/LegalLayout";
 import { ShieldCheck } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Fileinator",
-  description: "Learn how Fileinator protects your privacy while processing your files securely.",
+  title: "Privacy Policy",
+  description: "Learn how Fileinator protects your privacy while processing your files securely. All processing happens in your browser without permanent storage.",
+  keywords: [
+    "privacy policy",
+    "data security",
+    "fileinator privacy",
+    "secure file processing",
+    "browser security"
+  ],
+  alternates: {
+    canonical: "/privacy-policy",
+  },
+  openGraph: {
+    title: "Privacy Policy | Fileinator",
+    description: "Learn how Fileinator protects your privacy while processing your files securely. All processing happens in your browser without permanent storage.",
+    url: "/privacy-policy",
+    siteName: "Fileinator",
+    type: "website",
+    images: ["/og-image.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Privacy Policy | Fileinator",
+    description: "Learn how Fileinator protects your privacy while processing your files securely. All processing happens in your browser without permanent storage.",
+    images: ["/og-image.png"],
+  },
 };
 
 const sections = [
@@ -21,9 +45,19 @@ const sections = [
   { id: "contact", title: "Contact Us" },
 ];
 
+import { JsonLd } from "@/components/seo/JsonLd";
+import { getBreadcrumbSchema } from "@/lib/seo/schema";
+
 export default function PrivacyPolicyPage() {
+  const breadcrumbs = getBreadcrumbSchema([
+    { name: "Home", item: "/" },
+    { name: "Privacy Policy", item: "/privacy-policy" },
+  ]);
+
   return (
-    <LegalLayout
+    <>
+      <JsonLd data={breadcrumbs} />
+      <LegalLayout
       title="Privacy Policy"
       description="We believe in protecting your personal information. Read our privacy policy to understand how we keep your data secure."
       icon={<ShieldCheck className="w-8 h-8" />}
@@ -103,5 +137,6 @@ export default function PrivacyPolicyPage() {
         If you have questions or comments about this notice, you may email us at privacy@fileinator.example.com.
       </p>
     </LegalLayout>
+    </>
   );
 }

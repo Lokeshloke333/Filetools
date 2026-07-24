@@ -3,8 +3,32 @@ import { LegalLayout } from "@/components/legal/LegalLayout";
 import { FileText } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Terms & Conditions | Fileinator",
-  description: "Read the terms governing your use of Fileinator online utilities.",
+  title: "Terms & Conditions",
+  description: "Read the terms governing your use of Fileinator online utilities. Understand your rights and responsibilities when using our free file tools.",
+  keywords: [
+    "terms and conditions",
+    "terms of service",
+    "legal notice",
+    "fileinator terms",
+    "user agreement"
+  ],
+  alternates: {
+    canonical: "/terms-and-conditions",
+  },
+  openGraph: {
+    title: "Terms & Conditions | Fileinator",
+    description: "Read the terms governing your use of Fileinator online utilities. Understand your rights and responsibilities when using our free file tools.",
+    url: "/terms-and-conditions",
+    siteName: "Fileinator",
+    type: "website",
+    images: ["/og-image.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Terms & Conditions | Fileinator",
+    description: "Read the terms governing your use of Fileinator online utilities. Understand your rights and responsibilities when using our free file tools.",
+    images: ["/og-image.png"],
+  },
 };
 
 const sections = [
@@ -21,9 +45,19 @@ const sections = [
   { id: "contact", title: "Contact Information" },
 ];
 
+import { JsonLd } from "@/components/seo/JsonLd";
+import { getBreadcrumbSchema } from "@/lib/seo/schema";
+
 export default function TermsAndConditionsPage() {
+  const breadcrumbs = getBreadcrumbSchema([
+    { name: "Home", item: "/" },
+    { name: "Terms & Conditions", item: "/terms-and-conditions" },
+  ]);
+
   return (
-    <LegalLayout
+    <>
+      <JsonLd data={breadcrumbs} />
+      <LegalLayout
       title="Terms & Conditions"
       description="Please read these terms and conditions carefully before using our website and services."
       icon={<FileText className="w-8 h-8" />}
@@ -109,5 +143,6 @@ export default function TermsAndConditionsPage() {
         If you have any questions about these Terms, please contact us at legal@fileinator.example.com.
       </p>
     </LegalLayout>
+    </>
   );
 }
